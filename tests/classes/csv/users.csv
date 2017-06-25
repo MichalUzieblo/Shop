@@ -1,3 +1,3 @@
-id,name,surname,email,password
-1,Michal,Nowak,example@op.pl,$2y$10$zLCx9sq3o13F6MmvMZsI.OBuh1sTJW3CMO4KOqrMVwbf8loPN5VxG
-2,Jan,Kowalski,example@op.pl,$2y$10$oMGBpY/5lrqGE8fgU0fp6e9YA40ljc0lQrXN8xcLWQVQIWNHU4P/y
+id,name,surname,email,password,address
+1,Michal,Nowak,example@op.pl,$2y$10$zLCx9sq3o13F6MmvMZsI.OBuh1sTJW3CMO4KOqrMVwbf8loPN5VxG,bukowa
+2,Jan,Kowalski,example2@op.pl,$2y$10$oMGBpY/5lrqGE8fgU0fp6e9YA40ljc0lQrXN8xcLWQVQIWNHU4P/y,lipowa
