@@ -8,7 +8,7 @@ class Product {
     private $price;
     private $description;
     private $inStock;
-    private $group;
+    private $type;
 
     // This function sets connection for this class to use
     // This function needs to be run on startup
@@ -16,13 +16,13 @@ class Product {
         Product::$conn = $newConnection;
     }
     
-    private function __construct($newId, $newName, $newPrice, $newDescription, $newInStock, $group){
+    private function __construct($newId, $newName, $newPrice, $newDescription, $newInStock, $type){
         $this->id = $newId;
         $this->name = $newName;
         $this->price = $newPrice;
         $this->description = $newDescription;        
         $this->inStock = $newInStock;
-        $this->group = $group;
+        $this->type = $type;
     }
     
     //this function returns:
@@ -34,7 +34,7 @@ class Product {
         if ($result->num_rows == 0) {
             //inserting product to db
             $inStock = 0;
-            $sqlStatement = "INSERT INTO Products(name, price, description, inStock, `group`) values ('$name', $price, 'cos', $inStock, 'cos')";
+            $sqlStatement = "INSERT INTO Products(name, price, description, inStock, type) values ('$name', $price, 'cos', $inStock, 'cos')";
             if (Product::$conn->query($sqlStatement) === TRUE) {
                 //entery was added to DB so we can return new object
                 return new Product(Product::$conn->insert_id, $name, $price, 'cos', $inStock, 'cos');
@@ -66,7 +66,7 @@ class Product {
         $result = Product::$conn->query($sqlStatement);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()){
-                $ret[] = new Product($row['id'], $row['name'], $row['price'], $row['description'], $row['inStock'], $row['group']);
+                $ret[] = new Product($row['id'], $row['name'], $row['price'], $row['description'], $row['inStock'], $row['type']);
             }
         }
         return $ret;
@@ -74,14 +74,14 @@ class Product {
     
     //this function return:
     // array with all Products from required group
-    public static function GetAllProductsByGroup($group){
+    public static function GetAllProductsByGroup($type){
         $ret = array();
-        $sqlStatement = "Select * from Products where group = '$group'";
+        $sqlStatement = "Select * from Products where type = '$type'";
         
         $result = Product::$conn->query($sqlStatement);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()){
-                $ret[] = new Product($row['id'], $row['name'], $row['price'], $row['description'], $row['inStock'], $row['group']);
+                $ret[] = new Product($row['id'], $row['name'], $row['price'], $row['description'], $row['inStock'], $row['type']);
             }
         }
         return $ret;
@@ -94,7 +94,7 @@ class Product {
         $result = Product::$conn->query($sqlStatement);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            return new Product($id, $row['name'], $row['price'], $row['description'], $row['inStock'], $row['group']);
+            return new Product($id, $row['name'], $row['price'], $row['description'], $row['inStock'], $row['type']);
         }
         return null;
     }
@@ -121,8 +121,8 @@ class Product {
         return $this->inStock;
     }
     
-    function getGroup() {
-        return $this->group;
+    function getType() {
+        return $this->type;
     }
 
     function setName($name) {
@@ -141,8 +141,8 @@ class Product {
         $this->inStock = $inStock;
     }
     
-    function setGroup($group) {
-        $this->group = $group;
+    function setType($type) {
+        $this->type = $type;
     }
 
     

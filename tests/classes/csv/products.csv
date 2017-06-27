@@ -1,3 +1,3 @@
-id,name,price,description,inStock,group
+id,name,price,description,inStock,type
 1,bread,3.35,very good,6,breadstuff
 2,butter,5.29,quite good,3,dairy
