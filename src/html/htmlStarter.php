@@ -5,7 +5,7 @@
             echo 'Pomyslnie wylogowano<br>';
         }
         ?>
-        <legend>Welcome in The Skyscraper's Shop</legend>                               
+        <legend>Log in</legend>                               
         <button type="submit" value="logInn" class="btn btn-success">Log in</button>
     </form>
     <br>

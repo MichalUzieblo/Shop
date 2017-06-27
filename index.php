@@ -7,7 +7,32 @@ require_once dirname(__FILE__) . "/src/actions/log/isLogout.php";
 $title = 'Shop';
 require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
 
+$productGroup = 'all';
+var_dump($_POST);
+if (!empty($_SESSION['productGroup']='')) {
+    switch ($_SESSION['productGroup']) {
+        case 'office':
+            $productGroup = 'office';
+            break;
+        case 'residential':
+            $productGroup = 'residential';
+            break;
+        case 'hotels':
+            $productGroup = 'office';
+            break;
+        case 'mixed':
+            $productGroup = 'mixed';
+            break;
+    }
+}
+
 ?>
+<div class="row">
+    <center>
+        <legend>Welcome in The Skyscraper's Shop</legend>
+    </center>
+</div>
+
 <div class="row">
     
     <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
@@ -15,9 +40,7 @@ require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
     
     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
         <?php
-//            require_once dirname(__FILE__) . "/src/html/htmlSlider.php";
-//        place for Menu
-        echo "<h1>Menu</h1>";
+            require_once dirname(__FILE__) . "/src/html/htmlMenu.php";
         ?> 
     </div>
     
@@ -48,54 +71,11 @@ require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
     <hr>
     </div>
  
-<div class="container">   
-    <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">            
-        </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" id="books">
-            <div id="reset">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div><p></p></div>
-                
-                
-            </div>
-        </div>
-        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-        </div>
-    </div>    
-</div>
-    
+ 
 <div class="row">
-    
-    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-    </div>
-    
-    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-        Produkt 1
-    </div>
-    
-    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-        Produkt 1
-    </div>
-    
-    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-        Produkt 1
-    </div>
-    
-    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-        Produkt 1
-    </div>
-    
-    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-        Produkt 1
-    </div>
-   
-    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-    </div>
-    
+    <?php
+        require_once dirname(__FILE__) . "/src/html/htmlProducts.php";
+    ?>  
 </div> 
 
 <?php

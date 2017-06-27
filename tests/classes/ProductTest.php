@@ -62,6 +62,11 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertSame($this->product->getName(), $ret[2]->getName());
     }
     
+    public function testGetAllProductsByGroup() {
+        $ret = Product::GetAllProductsByGroup('cos');
+        $this->assertSame($this->product->getName(), $ret[2]->getName());
+    }
+    
     public function testGetAllProductsLimit() {
         $ret = Product::GetAllProducts(2);
         $this->assertCount(2, $ret);
@@ -80,7 +85,8 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('milk', $this->product->getName());
         $this->assertEquals(1.99, $this->product->getPrice());
         $this->assertEquals('cos', $this->product->getDescription());
-        $this->assertEquals(0, $this->product->getInStock());        
+        $this->assertEquals(0, $this->product->getInStock());     
+        $this->assertEquals('cos', $this->product->getGroup());
     }
     
     public function testSetters() {        
@@ -88,6 +94,7 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $this->product->setPrice(1.35);
         $this->product->setDescription('still');
         $this->product->setInStock(5);
+        $this->product->setGroup('office');
         
         $this->product->saveToDB();
 
@@ -95,5 +102,6 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(1.35, $this->product->getPrice());
         $this->assertEquals('still', $this->product->getDescription());
         $this->assertEquals(5, $this->product->getInStock());  
+        $this->assertEquals('office', $this->product->getGroup()); 
     } 
 }
