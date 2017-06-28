@@ -15,4 +15,8 @@
     <form action="" method="post" role="form">
         <button type="submit" name="productGroup" value="mixed" class="btn btn-success">Mixed</button>
     </form>
+    <br>
+    <form action="" method="post" role="form">
+        <button type="submit" name="productGroup" value="all" class="btn btn-success">All</button>
+    </form>
 </center> 

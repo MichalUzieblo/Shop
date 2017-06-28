@@ -20,13 +20,14 @@ $shopArraysSQL = array(
                         PRIMARY KEY(id))
      ENGINE=InnoDB, CHARACTER SET=utf8"
 ,    
-    "create table Photos(
+    "create table ProductPhotos(
                         id int AUTO_INCREMENT NOT NULL,
                         product_id int NOT NULL,
                         path varchar(255) NOT NULL,
                         PRIMARY KEY(id),
                         FOREIGN KEY(product_id) REFERENCES Products(id) ON DELETE CASCADE)
-     ENGINE=InnoDB, CHARACTER SET=utf8");
+     ENGINE=InnoDB, CHARACTER SET=utf8"
+    );
 
 foreach($shopArraysSQL as $query){
     $result = $conn->query($query);

@@ -8,7 +8,7 @@ $title = 'Shop';
 require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
 
 $productGroup = 'all';
-var_dump($_POST);
+
 if (!empty($_SESSION['productGroup']='')) {
     switch ($_SESSION['productGroup']) {
         case 'office':
@@ -24,6 +24,12 @@ if (!empty($_SESSION['productGroup']='')) {
             $productGroup = 'mixed';
             break;
     }
+} elseif ($_POST['productGroup'] == 'offices' || $_POST['productGroup'] == 'residential'
+        || $_POST['productGroup'] == 'hotels' || $_POST['productGroup'] == 'mixed') {
+    $productGroup = $_POST['productGroup'];
+    $_POST['productGroup'] = $productGroup;
+} else {
+    $productGroup = 'all';
 }
 
 ?>

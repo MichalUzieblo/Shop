@@ -41,7 +41,7 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
     }
     
     public function testCreate() {                
-        $this->assertEquals(3, $this->product->getId());
+        $this->assertEquals(10, $this->product->getId());
     }
     
     public function testCreateProductNull() { 
@@ -59,7 +59,7 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
 
     public function testGetAllProducts() {
         $ret = Product::GetAllProducts();
-        $this->assertSame($this->product->getName(), $ret[2]->getName());
+        $this->assertSame($this->product->getName(), $ret[9]->getName());
     }
     
     public function testGetAllProductsByGroup() {
@@ -73,15 +73,15 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
     }
     
     public function testGetProduct() {        
-        $this->assertSame($this->product->getName(), Product::GetProduct(3)->getName());
+        $this->assertSame($this->product->getName(), Product::GetProduct(10)->getName());
     }
     
     public function testGetProductNull() {        
-        $this->assertNull(Product::GetProduct(6));
+        $this->assertNull(Product::GetProduct(12));
     }
     
     public function testGetters() {        
-        $this->assertEquals(3, $this->product->getId());
+        $this->assertEquals(10, $this->product->getId());
         $this->assertEquals('milk', $this->product->getName());
         $this->assertEquals(1.99, $this->product->getPrice());
         $this->assertEquals('cos', $this->product->getDescription());

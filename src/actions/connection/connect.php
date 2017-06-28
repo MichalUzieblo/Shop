@@ -2,6 +2,7 @@
 
 require_once dirname(__FILE__) . "/../../../config/database.php";
 require_once dirname(__FILE__) . "/../../classes/Product.php";
+require_once dirname(__FILE__) . "/../../classes/ProductPhoto.php";
 require_once dirname(__FILE__) . "/../../classes/User.php";
 
 
@@ -13,3 +14,4 @@ if ($conn->connect_error) {
 
 Product::SetConnection($conn);
 User::SetConnection($conn);
+ProductPhoto::SetConnection($conn);

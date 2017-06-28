@@ -1,0 +1,10 @@
+id,product_id,path,name
+1,1,/src/db/photos/1_PKIN.php,a
+2,1,/src/db/photos/2_WTT.php,b
+3,1,/src/db/photos/3_Zlota.php,c
+4,2,/src/db/photos/1_PKIN.php,d
+5,2,/src/db/photos/2_WTT.php,e
+6,3,/src/db/photos/3_Zlota.php,f
+7,5,/src/db/photos/1_PKIN.php,g
+8,4,/src/db/photos/2_WTT.php,h
+9,6,/src/db/photos/3_Zlota.php,i
