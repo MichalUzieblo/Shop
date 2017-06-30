@@ -43,6 +43,11 @@ class ProductPhotoTest extends PHPUnit_Extensions_Database_TestCase {
     public function testCreateProductPhoto() {                
         $this->assertEquals(10, $this->productPhoto->getId());
     }
+    
+    public function testGetAllPhotosByProdcuctId() {
+        $ret = ProductPhoto::GetAllPhotosByProdcuctId(1);
+        $this->assertEquals(2, $ret[1]->getId());
+    }
 
 }
 

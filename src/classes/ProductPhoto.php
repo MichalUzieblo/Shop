@@ -37,8 +37,27 @@ class ProductPhoto {
         return null;
     }    
     
+    //this function return:
+    // array with all product photos from required group
+    public static function GetAllPhotosByProdcuctId($product_id){
+        $ret = array();
+        $sqlStatement = "Select * from ProductPhotos where product_id = '$product_id'";
+        
+        $result = ProductPhoto::$conn->query($sqlStatement);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()){
+                $ret[] = new ProductPhoto($row['id'], $row['product_id'], $row['path'], $row['name']);
+            }
+        }
+        return $ret;
+    }
+    
     public function getId(){
         return $this->id;
+    }
+    
+    public function getPath(){
+        return $this->path;
     }
     
     //this function is responsible for saving any changes done to ProductPhotos to database

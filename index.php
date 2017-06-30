@@ -9,29 +9,26 @@ require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
 
 $productGroup = 'all';
 
-if (!empty($_SESSION['productGroup']='')) {
-    switch ($_SESSION['productGroup']) {
-        case 'office':
-            $productGroup = 'office';
+//TODO additional database with producGroup - because of possibility to add new one by admin
+if (!empty($_POST['productGroup'])) {    
+    switch ($_POST['productGroup']) {
+        case 'offices':
+            $productGroup = 'offices';
             break;
         case 'residential':
             $productGroup = 'residential';
             break;
         case 'hotels':
-            $productGroup = 'office';
+            $productGroup = 'hotels';
             break;
         case 'mixed':
             $productGroup = 'mixed';
             break;
     }
-} elseif ($_POST['productGroup'] == 'offices' || $_POST['productGroup'] == 'residential'
-        || $_POST['productGroup'] == 'hotels' || $_POST['productGroup'] == 'mixed') {
-    $productGroup = $_POST['productGroup'];
-    $_POST['productGroup'] = $productGroup;
 } else {
     $productGroup = 'all';
 }
-
+require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
 ?>
 <div class="row">
     <center>

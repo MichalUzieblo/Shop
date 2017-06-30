@@ -20,7 +20,10 @@ function printProducts ($products) {
      
     foreach ($products as $value) {
         echo '<center><div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">';
-        echo $value->getName() . '<br>';
+        
+        echo '<a href="src/actions/product/pageProduct.php?'
+        . 'id='.$value->getId().'">'.$value->getName().'</a><br>';
+        
         echo $value->getPrice() . '<br>';
         echo $value->getDescription() . '<br>';
         echo '</div/center>';
