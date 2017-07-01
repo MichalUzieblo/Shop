@@ -3,7 +3,7 @@ session_start();
 require_once dirname(__FILE__) . "/src/actions/connection/connect.php";
 require_once dirname(__FILE__) . "/src/actions/log/isLogged.php";
 require_once dirname(__FILE__) . "/src/actions/log/isLogout.php";
-
+var_dump($_POST, $_GET, $_SESSION);
 $title = 'Shop';
 require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
 
@@ -30,11 +30,7 @@ if (!empty($_POST['productGroup'])) {
 }
 require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
 ?>
-<div class="row">
-    <center>
-        <legend>Welcome in The Skyscraper's Shop</legend>
-    </center>
-</div>
+
 
 <div class="row">
     
@@ -59,6 +55,7 @@ require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
         if ($isLogged) {
 //            require_once dirname(__FILE__) . "/src/actions/basket/basket.php";
 //            here will be action file with link to user basket wit selected products
+            require_once dirname(__FILE__) . "/src/actions/cart/pageCart.php";
         } else {
             require_once dirname(__FILE__) . "/src/html/htmlStarter.php";
         }

@@ -18,3 +18,9 @@
 <div class="row">
     <p></p>
 </div>   
+    
+<div class="row">
+    <center>
+        <legend>Welcome in The Skyscraper's Shop</legend>
+    </center>
+</div>

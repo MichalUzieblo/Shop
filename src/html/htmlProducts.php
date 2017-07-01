@@ -1,6 +1,6 @@
 <?php
 
-//require_once dirname(__FILE__) . "/../connection/connect.php";
+require_once dirname(__FILE__) . "/../actions/connection/connect.php";
 
 if (!empty($productGroup)) {
     

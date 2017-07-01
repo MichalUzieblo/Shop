@@ -8,23 +8,35 @@
 
     <div class="carousel-inner">
       <div class="item active">
-        <img src="src/db/photos/1_PKiN.jpg" alt="">
+        <a href="src/actions/product/pageProduct.php?id=1">
+            <img src="src/db/photos/1_PKiN.jpg" alt="">
+        </a>
         <div class="carousel-caption">
-          <h1 style="background-color:black; color:white">200mln</h1>
+            <h1 style="background-color:black; color:white">
+                <a href="src/actions/product/pageProduct.php?id=1">200mln</a>
+            </h1>
         </div>
       </div>
 
       <div class="item">
-        <img src="src/db/photos/2_WTT.jpg" alt="">
+        <a href="src/actions/product/pageProduct.php?id=2">
+            <img src="src/db/photos/2_WTT.jpg" alt="">
+        </a>
         <div class="carousel-caption" >
-          <h1 style="background-color:black; color:white">180mln</h1>
+          <h1 style="background-color:black; color:white">
+              <a href="src/actions/product/pageProduct.php?id=2">180mln</a>
+          </h1>
         </div>
       </div>
 
       <div class="item">
-        <img src="src/db/photos/3_Zlota.jpg" alt="">
+        <a href="src/actions/product/pageProduct.php?id=3">
+            <img src="src/db/photos/3_Zlota.jpg" alt="">
+        </a>
         <div class="carousel-caption">
-          <h1 style="background-color:black; color:white">160mln</h1>
+          <h1 style="background-color:black; color:white">
+              <a href="src/actions/product/pageProduct.php?id=3">160mln</a>
+          </h1>
         </div>
       </div>
 

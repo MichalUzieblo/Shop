@@ -20,17 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])
         
         if ($password == $repeatPassword) {
          
-            $newUser = new Users();
-            $newUser ->setUsername($username);
-            $newUser ->setPassword($password);
-            $newUser ->setEmail($email);
-            $isExist = $newUser ->saveToDB($conn);
-            if ($isExist == null) {
-                $switch = 1;
-            } else {             
+            $newUser = User::CreateUser($email, $password);
+            
+
+            if ($newUser) {
+                $newUser ->setName($username);
                 $_SESSION['id'] = $newUser ->getId();
-                header("Location: ../board/mainBoard.php");
-            }            
+                header("Location: ../../../index.php");
+            } else {
+                $switch = 1;
+            }
         } else {
             $switch = 2;            
         }
