@@ -9,10 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['cartOpt'])) {
     
     if ($cartOpt == 'clear') {
         unset($_SESSION['idProductsInCar']);
+    } elseif ($cartOpt == 'logOut') {
+        require_once dirname(__FILE__) . "../../log/logOut.php";
     }
 }
 
-$canPrint = false;
+//$canPrint = true;
 
 if (isset($_SESSION['idProductsInCar'])) {
     $idProductsInCar = unserialize($_SESSION['idProductsInCar']);
@@ -25,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['productId'])) {
     $newProductId = trim($_POST['productId']);
     $idProductsInCar [] = $newProductId;
     $_SESSION['idProductsInCar'] = serialize($idProductsInCar);
-    $canPrint = true;
+//    $canPrint = true;
 
 }
  
@@ -49,19 +51,18 @@ function printProductsInCart($idProductsInCar) {
     <legend>Shopping Cart</legend>
     <?php
     
-    if ($canPrint) {
+//    if ($canPrint) {
         printProductsInCart($idProductsInCar);
-    }
+//    }
     ?>
     <form action="" method="post" role="form">
         <button type="submit" value="order" name="cartOpt" class="btn btn-success">Order</button>
         <button type="submit" value="clear" name="cartOpt" class="btn btn-success">Clear</button>        
-    </form>   
+    </form>
+    <!--<br>-->
     <form action="src/actions/cart/editCart.php" method="post" role="form">
         <button type="submit" value="edit" name="cartOpt" class="btn btn-success">Edit</button>
     </form>
-    <form action="src/actions/log/logOut.php" method="post" role="form">
-        <button type="submit" value="logOut" name="logOut" class="btn btn-success">LogOut</button>
-    </form>
+    
 </center>
 

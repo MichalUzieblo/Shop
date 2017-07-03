@@ -53,9 +53,10 @@ require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
         <?php
         
         if ($isLogged) {
-//            require_once dirname(__FILE__) . "/src/actions/basket/basket.php";
-//            here will be action file with link to user basket wit selected products
             require_once dirname(__FILE__) . "/src/actions/cart/pageCart.php";
+            echo '<center><form action="src/actions/log/logOut.php" method="post" role="form">';
+                echo '<button type="submit" value="logOut" name="logOut" class="btn btn-success">LogOut</button>';
+            echo '</form></center>';
         } else {
             require_once dirname(__FILE__) . "/src/html/htmlStarter.php";
         }

@@ -34,9 +34,11 @@ require_once dirname(__FILE__) . "/../../html/htmlHeader.php";
     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">  
         <center>
         <legend>Menu</legend>
+        <?php if (is_numeric($_SESSION['id'])) { ?>
         <form action="../../../index.php" method="post" role="form" id="center">                                       
             <button type="submit" name="productId" value="<?php echo $id ?>" class="btn btn-success">Add to Cart</button>
         </form>
+        <?php } ?>
         <br>
         <form action="../../../index.php" method="post" role="form" id="center">                                       
             <button type="submit" name="productGroup" value="all" class="btn btn-success">Main Page</button>
@@ -93,6 +95,7 @@ require_once dirname(__FILE__) . "/../../html/htmlHeader.php";
     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">        
         <?php
             require_once dirname(__FILE__) . "/../cart/pageCart.php";
+            
         ?>
         
     </div>
