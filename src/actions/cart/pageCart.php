@@ -60,5 +60,8 @@ function printProductsInCart($idProductsInCar) {
     <form action="src/actions/cart/editCart.php" method="post" role="form">
         <button type="submit" value="edit" name="cartOpt" class="btn btn-success">Edit</button>
     </form>
+    <form action="src/actions/log/logOut.php" method="post" role="form">
+        <button type="submit" value="logOut" name="logOut" class="btn btn-success">LogOut</button>
+    </form>
 </center>
 

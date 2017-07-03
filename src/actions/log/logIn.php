@@ -12,9 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])
     
     if (!empty($_POST['email']) && !empty($_POST['password'])) {
         
-        if ((User::AuthenticateUser($email, $password) != NULL)) {
-            $_SESSION['id'] = $row['id'];
-            header("Location: ../board/mainBoard.php");
+        $user = User::AuthenticateUser($email, $password);
+        
+        if (($user != NULL)) {
+            
+            $_SESSION['id'] = $user->getId();
+            unset ($_SESSION['logOut']);
+            header("Location: ../../../index.php");
         } else {
             $badPass = 'wrongEmail';
         }
