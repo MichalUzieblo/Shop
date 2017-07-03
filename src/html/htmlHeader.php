@@ -21,6 +21,6 @@
     
 <div class="row">
     <center>
-        <legend>Welcome in The Skyscraper's Shop</legend>
+        <legend>The Skyscraper's Shop</legend>
     </center>
 </div>
