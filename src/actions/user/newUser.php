@@ -2,7 +2,6 @@
 session_start();
 
 require_once dirname(__FILE__) . "/../connection/connect.php";
-//require_once dirname(__FILE__) . "/../../classes/Users.php";
 
 $switch = 0;
 
@@ -25,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])
 
             if ($newUser) {
                 $newUser ->setName($username);
+                $newUser ->saveToDB();
                 $_SESSION['id'] = $newUser ->getId();
                 header("Location: ../../../index.php");
             } else {

@@ -20,7 +20,7 @@ class User{
     private function __construct($newId, $newName, $newSurname, $newMail, $newPassword, $newAddress){
         $this->id = $newId;
         $this->name = $newName;
-        $this->surnaname = $newSurname;
+        $this->surname = $newSurname;
         $this->email = $newMail;        
         $this->password = $newPassword;
         $this->address = $newAddress;
@@ -111,8 +111,8 @@ class User{
         return $this->name;
     }
 
-    public function getSurnaname() {
-        return $this->surnaname;
+    public function getSurname() {
+        return $this->surname;
     }
 
     public function getEmail() {
@@ -127,8 +127,8 @@ class User{
         $this->name = $name;
     }
 
-    public function setSurnaname($surnaname) {
-        $this->surnaname = $surnaname;
+    public function setSurname($surname) {
+        $this->surname = $surname;
     }
 
     public function setEmail($email) {

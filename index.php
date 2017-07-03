@@ -3,11 +3,12 @@ session_start();
 require_once dirname(__FILE__) . "/src/actions/connection/connect.php";
 require_once dirname(__FILE__) . "/src/actions/log/isLogged.php";
 require_once dirname(__FILE__) . "/src/actions/log/isLogout.php";
-var_dump($_POST, $_GET, $_SESSION);
+var_dump($_POST, $_GET, $_SESSION, $_SERVER['DOCUMENT_ROOT']);
 $title = 'Shop';
 require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
 
 $productGroup = 'all';
+$isProductId = FALSE;
 
 //TODO additional database with producGroup - because of possibility to add new one by admin
 if (!empty($_POST['productGroup'])) {    
@@ -54,9 +55,8 @@ require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
         
         if ($isLogged) {
             require_once dirname(__FILE__) . "/src/actions/cart/pageCart.php";
-            echo '<center><form action="src/actions/log/logOut.php" method="post" role="form">';
-                echo '<button type="submit" value="logOut" name="logOut" class="btn btn-success">LogOut</button>';
-            echo '</form></center>';
+            
+            
         } else {
             require_once dirname(__FILE__) . "/src/html/htmlStarter.php";
         }

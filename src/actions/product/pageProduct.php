@@ -4,16 +4,16 @@ session_start();
 require_once dirname(__FILE__) . "/../connection/connect.php";
 require_once dirname(__FILE__) . "/../log/isLogged.php";
 
-$isId = FALSE;
+$isProductId = FALSE;
 
-if (!empty($_GET['id']) /*&& $isLogged*/) { //Commented to first tests
+if (!empty($_GET['id'])) { 
     
     $id = $_GET['id'];
-    $isId = TRUE;
+    $isProductId = TRUE;
 }
 
 
-if ($isId) {
+if ($isProductId) {
     $product = Product::GetProduct($id);
     $name = $product->getName();
     $description = $product->getDescription();
@@ -47,12 +47,7 @@ require_once dirname(__FILE__) . "/../../html/htmlHeader.php";
     </div>
     
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <center>
-            <legend><?php echo $name ?></legend>
-            <p><?php echo $description ?></p>
-            <p><?php echo $price ?> zł</p>
-        </center>
-        
+                
         <div id="carousel-example-generic2" class="carousel slide">
             
             <ol class="carousel-indicators">
@@ -89,6 +84,12 @@ require_once dirname(__FILE__) . "/../../html/htmlHeader.php";
             </a>
             
         </div> 
+        
+        <center>
+            <legend><?php echo $name ?></legend>
+            <p><?php echo $description ?></p>
+            <p><?php echo $price ?> zł</p>
+        </center>
                 
     </div>
     

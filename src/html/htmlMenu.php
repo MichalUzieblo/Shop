@@ -19,4 +19,11 @@
     <form action="" method="post" role="form">
         <button type="submit" name="productGroup" value="all" class="btn btn-success">All</button>
     </form>
+    
+    <?php if (isset($_SESSION['id'])) { ?>
+    <legend>Profile</legend>
+    <center><form action="src/actions/user/editUser.php" method="post" role="form">
+        <button type="submit" value="editUser" name="editUser" class="btn btn-success">Edit User</button>
+    </form></center>
+    <?php } ?>
 </center> 

@@ -8,7 +8,7 @@
         <legend>Log in</legend>                               
         <button type="submit" value="logInn" class="btn btn-success">Log in</button>
     </form>
-    <br>
+    <!--<br>-->
     <form action="src/actions/user/newUser.php" method="post" role="form">
         <button type="submit" value="newUser" class="btn btn-success">Register</button>
     </form>                

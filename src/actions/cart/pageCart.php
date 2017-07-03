@@ -9,8 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['cartOpt'])) {
     
     if ($cartOpt == 'clear') {
         unset($_SESSION['idProductsInCar']);
-    } elseif ($cartOpt == 'logOut') {
-        require_once dirname(__FILE__) . "../../log/logOut.php";
     }
 }
 
@@ -59,10 +57,43 @@ function printProductsInCart($idProductsInCar) {
         <button type="submit" value="order" name="cartOpt" class="btn btn-success">Order</button>
         <button type="submit" value="clear" name="cartOpt" class="btn btn-success">Clear</button>        
     </form>
-    <!--<br>-->
-    <form action="src/actions/cart/editCart.php" method="post" role="form">
+    
+    <?php
+        if ($isProductId) {
+            echo '<br>';
+        }          
+    ?>
+    
+    <form action="
+          <?php
+          if ($isProductId) {
+              echo '../cart/editCart.php';
+          } else {
+              echo 'src/actions/cart/editCart.php';
+          }          
+          ?>
+          " method="post" role="form">
         <button type="submit" value="edit" name="cartOpt" class="btn btn-success">Edit</button>
     </form>
+    
+    <?php
+        if ($isProductId) {
+            echo '<br>';
+        }          
+    ?>
+    
+    <form action="
+          <?php
+          if ($isProductId) {
+              echo '../log/logOut.php';
+          } else {
+              echo 'src/actions/log/logOut.php';
+          }          
+          ?>
+          " method="post" role="form">
+        <button type="submit" value="logOut" name="logOut" class="btn btn-success">LogOut</button>
+    </form>
+
     
 </center>
 
