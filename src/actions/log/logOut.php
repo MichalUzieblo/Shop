@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['logOut'])) {
         if (isset($_SESSION['id'])) {
             unset($_SESSION['id']);                  
         } 
-        if (isset($_SESSION['idProductsInCar'])) {
-            unset($_SESSION['idProductsInCar']);
+        if (isset($_SESSION['idProductsInCart'])) {
+            unset($_SESSION['idProductsInCart']);
         }
         
         
