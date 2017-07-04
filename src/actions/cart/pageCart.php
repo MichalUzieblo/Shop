@@ -8,39 +8,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['cartOpt'])) {
     $cartOpt = trim($_POST['cartOpt']);
     
     if ($cartOpt == 'clear') {
-        unset($_SESSION['idProductsInCar']);
+        unset($_SESSION['idProductsInCart']);
     }
 }
 
-//$canPrint = true;
-
-if (isset($_SESSION['idProductsInCar'])) {
-    $idProductsInCar = unserialize($_SESSION['idProductsInCar']);
+if (isset($_SESSION['idProductsInCart'])) {
+    $idProductsInCart = unserialize($_SESSION['idProductsInCart']);
 } else {
-    $idProductsInCar = [];
+    $idProductsInCart = [];
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['productId'])) {
     
     $newProductId = trim($_POST['productId']);
-    $idProductsInCar [] = $newProductId;
-    $_SESSION['idProductsInCar'] = serialize($idProductsInCar);
-//    $canPrint = true;
+    $idProductsInCart [] = $newProductId;
+    $_SESSION['idProductsInCart'] = serialize($idProductsInCart);
+
 
 }
  
-function printProductsInCart($idProductsInCar) {
+function printProductsInCart($idProductsInCart) {
     
+    $orderedProductsId = array_count_values($idProductsInCart);
     $sum = 0;
     
-    foreach ($idProductsInCar as $id) {
+    foreach ($orderedProductsId as $id => $value) {
+        
         $product = Product::GetProduct($id);
-        echo $product->getName() . ' ';
-        echo $price=$product->getPrice() . ' zł<br>';
-        $sum += $price;
+        
+        $pc = ' pcs x ';
+        if ($value == 1) {
+            $pc = ' pc x '; 
+        }
+        
+        echo '<p align="left">' . $product->getName() . '</p>';
+        echo '<p align="right">' . $value .  $pc .  $product->getPrice() . ' zł </p>';
+        $sum += $product->getPrice() * $value;
     }
     
-    echo 'sum = ' . $sum . ' zł';
+    echo '<p align="right">sum = ' . $sum . ' zł</p>';
 }
 
 ?>
@@ -49,9 +55,8 @@ function printProductsInCart($idProductsInCar) {
     <legend>Shopping Cart</legend>
     <?php
     
-//    if ($canPrint) {
-        printProductsInCart($idProductsInCar);
-//    }
+        printProductsInCart($idProductsInCart);
+
     ?>
     <form action="" method="post" role="form">
         <button type="submit" value="order" name="cartOpt" class="btn btn-success">Order</button>
