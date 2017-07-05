@@ -44,10 +44,34 @@ class ProductPhotoTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(10, $this->productPhoto->getId());
     }
     
+    public function testCreateProductPhotoNull() { 
+        $productPhoto = ProductPhoto::CreateProductPhoto(2, 'cos.php', 'a');
+        $this->assertNull($productPhoto);
+    } 
+    
     public function testGetAllPhotosByProdcuctId() {
         $ret = ProductPhoto::GetAllPhotosByProdcuctId(1);
         $this->assertEquals(2, $ret[1]->getId());
     }
+    
+    public function testGetAllPhotosByProdcuctIdNull() {
+        $ret = ProductPhoto::GetAllPhotosByProdcuctId(1);
+        $this->assertEquals(2, $ret[1]->getId());
+    }
+    
+     
+    public function testGetterAndSetters() {        
+        $this->productPhoto->setProduct_id(3);
+        $this->productPhoto->setPath('path');
+        $this->productPhoto->setName('k');
+        
+        $this->productPhoto->saveToDB();
+
+        $this->assertEquals(3, $this->productPhoto->getProduct_id());
+        $this->assertEquals('path', $this->productPhoto->getPath());
+        $this->assertEquals('k', $this->productPhoto->getName());        
+    }
+    
 
 }
 

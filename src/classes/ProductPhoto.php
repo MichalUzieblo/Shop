@@ -6,6 +6,7 @@ class ProductPhoto {
     private $id;
     private $product_id;
     private $path;
+    private $name;
     
     // This function sets connection for this class to use
     // This function needs to be run on startup
@@ -13,10 +14,11 @@ class ProductPhoto {
         ProductPhoto::$conn = $newConnection;
     }
     
-    private function __construct($newId, $newProduct_Id, $newPath){
+    private function __construct($newId, $newProduct_Id, $newPath, $newName){
         $this->id = $newId;
         $this->product_id = $newProduct_Id;
-        $this->path = $newPath;        
+        $this->path = $newPath;    
+        $this->name = $newName; 
     }
     
     //this function returns:
@@ -56,13 +58,35 @@ class ProductPhoto {
         return $this->id;
     }
     
+    public function getProduct_id(){
+        return $this->product_id;
+    }
+    
     public function getPath(){
         return $this->path;
     }
     
+    public function getName(){
+        return $this->name;
+    }
+    
+    function setProduct_id($product_id) {
+        $this->product_id = $product_id;
+    }
+
+    function setPath($path) {
+        $this->path = $path;
+    }
+
+    function setName($name) {
+        $this->name = $name;
+    }
+
+                
     //this function is responsible for saving any changes done to ProductPhotos to database
     public function saveToDB(){
-        $sql = "UPDATE ProductPhotos SET product_id={$this->product_id}, path='{$this->path}' WHERE id={$this->id}";
+        $sql = "UPDATE ProductPhotos SET product_id={$this->product_id}, path='{$this->path}' "
+        . ", name='{$this->name}'WHERE id={$this->id}";
         return ProductPhoto::$conn->query($sql);
     }
 
