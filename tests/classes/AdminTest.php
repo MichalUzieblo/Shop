@@ -44,59 +44,30 @@ class AdminTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(1, $this->admin->getId());
     } 
     
-//    public function testCreateUserNull() { 
-//        $user = User::CreateUser('example@op.pl', 'haslo');
-//        $this->assertNull($user);
-//    } 
-//    
-//    public function testGetUser() {        
-//        $this->assertSame($this->user->getName(), User::GetUser(3)->getName());
-//    } 
-//    
-//    public function testGetUserNull() {        
-//        $this->assertEquals(-1, User::GetUser(6));
-//    }
-//    
-//    public function testAuthenticateUser() {
-//        $authenticate = User::AuthenticateUser('example4@op.pl', 'haslo');
-//        $this->assertEquals($authenticate->getId(), $this->user->getId());        
-//    }
-//    
-//    public function testAuthenticateUserNull() {    
-//        $this->assertNull(User::AuthenticateUser('example4@op.pl', 'haslo2'));
-//    }
-//    
-//    public function testDeleteUser() {        
-//        User::DeleteUser($this->user, 'haslo');
-//        
-//        $authenticate = User::AuthenticateUser('example4@op.pl', 'haslo');
-//        $this->assertNull($authenticate);
-//    }
-//    
-//    public function testDeleteUserFalse() {
-//        $this->assertFalse(User::DeleteUser($this->user, 'haslo1'));
-//    }
-//    
-//    public function testGetters() {        
-//        $this->assertEquals(3, $this->user->getId());
-//        $this->assertEquals('jakies', $this->user->getName());
-//        $this->assertEquals('jakies', $this->user->getSurnaname());
-//        $this->assertEquals('example4@op.pl', $this->user->getEmail());
-//        $this->assertEquals('jakis', $this->user->getAddress());        
-//    }
-//    
-//    public function testSetters() {        
-//        $this->user->setName('Johny');
-//        $this->user->setSurnaname('Bravo');
-//        $this->user->setEmail('example5@op.pl');
-//        $this->user->setPassword('haslo5');
-//        $this->user->setAddress('Sosnowa');
-//        
-//        $this->user->saveToDB();
-//
-//        $this->assertEquals('Johny', $this->user->getName());
-//        $this->assertEquals('Bravo', $this->user->getSurnaname());
-//        $this->assertEquals('example5@op.pl', $this->user->getEmail());
-//        $this->assertEquals('Sosnowa', $this->user->getAddress());        
-//    }    
+    public function testAuthenticateAdminNull() {    
+        $this->assertNull(Admin::AuthenticateAdmin('dfg@dfg.dfg', 'asd'));
+    }
+
+
+    
+    public function testGetters() {        
+        $this->assertEquals(1, $this->admin->getId());
+        $this->assertEquals('dfg', $this->admin->getName());
+        $this->assertEquals('dfg@dfg.dfg', $this->admin->getEmail());     
+    }
+    
+    public function testSetters() {        
+        $this->admin->setName('asd');
+        $this->admin->setEmail('asd@asd.asd');
+        $this->admin->setPassword('asd');
+        
+        $this->admin->saveToDB();
+        
+        $admin = Admin::AuthenticateAdmin('asd@asd.asd', 'asd');
+
+        $this->assertEquals('asd', $this->admin->getName());
+        $this->assertEquals('asd@asd.asd', $this->admin->getEmail());
+        $this->assertEquals(1, $admin->getId());
+ 
+    }    
 }
