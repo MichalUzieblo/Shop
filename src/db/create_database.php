@@ -27,6 +27,14 @@ $shopArraysSQL = array(
                         PRIMARY KEY(id),
                         FOREIGN KEY(product_id) REFERENCES Products(id) ON DELETE CASCADE)
      ENGINE=InnoDB, CHARACTER SET=utf8"
+,
+    "create table Admins(
+                        id int AUTO_INCREMENT NOT NULL,
+                        name varchar(255) NOT NULL,
+                        email varchar(255) NOT NULL UNIQUE,
+                        password varchar(60) NOT NULL,
+                        PRIMARY KEY(id))
+     ENGINE=InnoDB, CHARACTER SET=utf8"
     );
 
 foreach($shopArraysSQL as $query){
