@@ -22,7 +22,7 @@ class Admin {
     // This function sets connection for this class to use
     // This function needs to be run on startup
     public static function SetConnection($newConnection){
-        User::$conn = $newConnection;
+        Admin::$conn = $newConnection;
     }
 
     private function __construct($newId, $newName, $newMail, $newPassword){
@@ -33,7 +33,7 @@ class Admin {
     }
     
     //this function returns:
-    //   null if user does not exist in database or password does not match
+    //   null if admin does not exist in database or password does not match
     //   new Admin object if Admin was authenticated
     public static function AuthenticateAdmin($userMail, $password){
         $sqlStatement = "Select * from Admins where email = '$userMail'";
@@ -41,8 +41,7 @@ class Admin {
         if ($result->num_rows == 1) {
             $adminData = $result->fetch_assoc();
             $admin = new Admin($adminData['id'], $adminData['name'], 
-                    $adminData['surname'], $adminData['email'], 
-                    $adminData['password'], $adminData['address']);
+                    $adminData['email'], $adminData['password']);
             
             if($admin->authenticate($password)){
                 //Admin is authenticated - we can return him

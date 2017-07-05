@@ -81,14 +81,14 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase {
     public function testGetters() {        
         $this->assertEquals(3, $this->user->getId());
         $this->assertEquals('jakies', $this->user->getName());
-        $this->assertEquals('jakies', $this->user->getSurnaname());
+        $this->assertEquals('jakies', $this->user->getSurname());
         $this->assertEquals('example4@op.pl', $this->user->getEmail());
         $this->assertEquals('jakis', $this->user->getAddress());        
     }
     
     public function testSetters() {        
         $this->user->setName('Johny');
-        $this->user->setSurnaname('Bravo');
+        $this->user->setSurname('Bravo');
         $this->user->setEmail('example5@op.pl');
         $this->user->setPassword('haslo5');
         $this->user->setAddress('Sosnowa');
@@ -96,7 +96,7 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase {
         $this->user->saveToDB();
 
         $this->assertEquals('Johny', $this->user->getName());
-        $this->assertEquals('Bravo', $this->user->getSurnaname());
+        $this->assertEquals('Bravo', $this->user->getSurname());
         $this->assertEquals('example5@op.pl', $this->user->getEmail());
         $this->assertEquals('Sosnowa', $this->user->getAddress());        
     }    
