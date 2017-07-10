@@ -59,8 +59,24 @@ function printProductsInCart($idProductsInCart) {
 
     ?>
     <form action="" method="post" role="form">
-        <button type="submit" value="order" name="cartOpt" class="btn btn-success">Order</button>
         <button type="submit" value="clear" name="cartOpt" class="btn btn-success">Clear</button>        
+    </form>
+    <?php
+        if ($isProductId) {
+            echo '<br>';
+        }         
+    ?>
+    <form action="
+          <?php
+          if ($isProductId) {
+              echo '../order/pageOrder.php';
+          } else {
+              echo 'src/actions/order/pageOrder.php';
+          }          
+          ?>
+          " method="post" role="form">
+        <button type="submit" value="order" name="cartOpt" class="btn btn-success">Order</button>
+      
     </form>
     
     <?php
