@@ -44,78 +44,55 @@ class Product_OrderTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(3, $this->product_order->getId());
     }
     
-//    public function testCreateOrderNull() { 
-//        $order = Order::CreateOrder('ala', 'paid', 'cash');
-//        $this->assertNull($order);
-//    } 
-//    
-//    public function testCreateCart() {      
-//        $order = Order::CreateCart(1);
-//        $this->assertEquals(4, $order->getId());
-//    }
-//    
-//    public function testCreateCartNull() {      
-//        $order = Order::CreateCart(1);
-//        $order2 = Order::CreateCart(1);
-//        $this->assertNull($order2);
-//    }
-//    
-//    public function testDeleteOrder() {                
-//        $this->assertTrue(Order::DeleteOrder($this->order->getId()));
-//    }
-//    
-//    public function testDeleteOrderFalse() {
-//        $this->assertFalse(Order::DeleteOrder('z'));
-//    }
-//
-//    public function testGetAllOrders() {
-//        $ret = Order::GetAllOrders();
-//        $this->assertSame($this->order->getStatus(), $ret[2]->getStatus());
-//    }
-//    
-//    public function testGetAllOrdersLimit() {
-//        $ret = Order::GetAllOrders(2);
-//        $this->assertCount(2, $ret);
-//    }
-//    
-//    public function testGetOrder() {        
-//        $this->assertSame($this->order->getStatus(), Order::GetOrder(3)->getStatus());
-//    }
-//    
-//    public function testGetOrderNull() {        
-//        $this->assertNull(Order::GetOrder(12));
-//    }
-//    
-//    public function testGetCart() {   
-//        $order = Order::CreateCart(1);        
-//        $this->assertEquals(1, $order->GetCart()->getIsCart());
-//    }
-//    
-//    public function testGetCartNull() {        
-//        $this->assertNull($this->order->GetCart());
-//    }
-//    
-//    public function testGetters() {        
-//        $this->assertEquals(3, $this->order->getId());
-//        $this->assertEquals(1, $this->order->getUser_id());
-//        $this->assertEquals('paid', $this->order->getStatus());
-//        $this->assertEquals(0, $this->order->getIsCart());
-//        $this->assertEquals('cash', $this->order->getPaymentType());     
-//    }
-//    
-//    public function testSetters() {        
-//        $this->order->setUser_id(2);
-//        $this->order->setStatus('not paid');
-//        $this->order->setIsCart(1);
-//        $this->order->setPaymentType('transfer');
-//        
-//        $this->order->saveToDB();
-//        
-//        $this->assertEquals(2, $this->order->getUser_id());
-//        $this->assertEquals('not paid', $this->order->getStatus());
-//        $this->assertEquals(1, $this->order->getIsCart());
-//        $this->assertEquals('transfer', $this->order->getPaymentType());
-//    }
+    public function testCreateOrderNull() { 
+        $product_order = Product_Order::CreateProduct_Order('ala', 1, 1, 1);
+        $this->assertNull($product_order);
+    } 
+
+    public function testDeleteProduct_Order() {                
+        $this->assertTrue(Product_Order::DeleteProduct_Order($this->product_order->getId()));
+    }
+    
+    public function testDeleteProduct_OrderFalse() {
+        $this->assertFalse(Product_Order::DeleteProduct_Order('z'));
+    }
+
+    public function testGetAllByOrderId() {
+        $ret = Product_Order::GetAllByOrderId(1);
+        $this->assertEquals($this->product_order->getProduct_id(), $ret[1]->getProduct_id());
+    }
+    
+    public function testGetAllByProductId() {
+        $ret = Product_Order::GetAllByProductId(1);
+        $this->assertEquals($this->product_order->getOrder_id(), $ret[1]->getOrder_id());
+    }
+ 
+    public function testGetProduct_Order() {        
+        $this->assertEquals($this->product_order->getProduct_id(), Product_Order::GetProduct_Order(3)->getProduct_id());
+    }
+    
+    public function testGetProduct_OrderNull() {        
+        $this->assertNull(Product_Order::GetProduct_Order(12));
+    }
+
+    public function testGetters() {        
+        $this->assertEquals(1, $this->product_order->getFixed_price());
+        $this->assertEquals(1, $this->product_order->getQuantity());
+    }
+    
+    public function testSetters() {        
+        $this->product_order->setProduct_id(2);
+        $this->product_order->setOrder_id(3);
+        $this->product_order->setFixed_price(2);
+        $this->product_order->setQuantity(11);
+        
+        $this->product_order->saveToDB();
+        
+        $this->assertEquals(2, $this->product_order->getProduct_id());
+        $this->assertEquals(3, $this->product_order->getOrder_id());
+        $this->assertEquals(2, $this->product_order->getFixed_price());
+        $this->assertEquals(11, $this->product_order->getQuantity());
+    }
 //    
 //    public function testSettersNull() {        
 //        $this->order->setUser_id(50);
