@@ -8,7 +8,7 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase {
     
     protected function setUp() {
         parent::setUp();
-        $this->order = Order::CreateOrder(1, 'paid', NULL, 'cash');
+        $this->order = Order::CreateOrder(1, 'paid', 'cash');
     }
     
     public function getConnection() {
@@ -40,14 +40,25 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertNull(Order::SetConnection($conn));
     }
     
-    public function testCreate() {                
+    public function testCreateOrder() {                
         $this->assertEquals(3, $this->order->getId());
     }
     
     public function testCreateOrderNull() { 
-        $order = Order::CreateOrder('ala', 'paid', NULL, 'cash');
+        $order = Order::CreateOrder('ala', 'paid', 'cash');
         $this->assertNull($order);
     } 
+    
+    public function testCreateCart() {      
+        $order = Order::CreateCart(1);
+        $this->assertEquals(4, $order->getId());
+    }
+    
+    public function testCreateCartNull() {      
+        $order = Order::CreateCart(1);
+        $order2 = Order::CreateCart(1);
+        $this->assertNull($order2);
+    }
     
     public function testDeleteOrder() {                
         $this->assertTrue(Order::DeleteOrder($this->order->getId()));
@@ -59,7 +70,7 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase {
 
     public function testGetAllOrders() {
         $ret = Order::GetAllOrders();
-        $this->assertSame($this->order->getStatus(), $ret[3]->getStatus());
+        $this->assertSame($this->order->getStatus(), $ret[2]->getStatus());
     }
     
     public function testGetAllOrdersLimit() {
@@ -76,33 +87,48 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase {
     }
     
     public function testGetCart() {   
-        $order = Order::CreateOrder(1, null, TRUE, null);
-        $this->assertSame($this->order->getIsCart(), Order::GetOrder(4)->getIsCart());
+        $order = Order::CreateCart(1);        
+        $this->assertEquals(1, $order->GetCart()->getIsCart());
     }
     
     public function testGetCartNull() {        
-        $this->assertNull(Order::GetOrder(3)->getIsCart());
+        $this->assertNull($this->order->GetCart());
     }
     
     public function testGetters() {        
         $this->assertEquals(3, $this->order->getId());
-        $this->assertEquals(1, $this->order->getUserId());
+        $this->assertEquals(1, $this->order->getUser_id());
         $this->assertEquals('paid', $this->order->getStatus());
-        $this->assertEquals(null, $this->order->getIsCart());
+        $this->assertEquals(0, $this->order->getIsCart());
         $this->assertEquals('cash', $this->order->getPaymentType());     
     }
     
     public function testSetters() {        
-        $this->order->setUserId(2);
+        $this->order->setUser_id(2);
         $this->order->setStatus('not paid');
-        $this->order->setIsCart(TRUE);
+        $this->order->setIsCart(1);
         $this->order->setPaymentType('transfer');
         
         $this->order->saveToDB();
         
-        $this->assertEquals(2, $this->order->getUserId());
+        $this->assertEquals(2, $this->order->getUser_id());
         $this->assertEquals('not paid', $this->order->getStatus());
-        $this->assertEquals(TRUE, $this->order->getIsCart());
+        $this->assertEquals(1, $this->order->getIsCart());
         $this->assertEquals('transfer', $this->order->getPaymentType());
-    } 
+    }
+    
+    public function testSettersNull() {        
+        $this->order->setUser_id(50);
+        $this->order->setStatus('ok');
+        $this->order->setIsCart(3);
+        $this->order->setPaymentType('money');
+        
+        $this->order->saveToDB();
+        
+        $this->assertEquals(1, $this->order->getUser_id());
+        $this->assertEquals('paid', $this->order->getStatus());
+        $this->assertEquals(0, $this->order->getIsCart());
+        $this->assertEquals('cash', $this->order->getPaymentType());
+    }
+
 }

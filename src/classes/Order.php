@@ -1,10 +1,7 @@
 <?php
 
-/**
- * Description of Order
- *
- * @author michal
- */
+require_once dirname(__FILE__) . "/User.php";
+
 class Order {
     static private $conn;
     
@@ -31,14 +28,83 @@ class Order {
     //this function returns:
     //   null if Order exist in database
     //   new Order object if new entry was added to table
-    public static function CreateOrder($user_id, $status, $isCart, $paymentType){
+    public static function CreateOrder($user_id, $status, $paymentType){
         
-        $sqlStatement = "INSERT INTO Orders(user_id, status, isCart, paymentType) values ($user_id, '$status', '$isCart', '$paymentType')";
+        $sqlStatement = "INSERT INTO Orders(user_id, status, paymentType) values ($user_id, '$status', '$paymentType')";
         if (Order::$conn->query($sqlStatement) === TRUE) {
             //entery was added to DB so we can return new object
-            return new Order(Order::$conn->insert_id, $user_id, $status, $isCart, $paymentType);
+            return new Order(Order::$conn->insert_id, $user_id, $status, 0, $paymentType);
         }
         //there is an error with sql
+        return null;
+    }
+    
+    //   this function returns:
+    //   null if cart exist in database
+    //   new Order object if new entry was added to table
+    public static function CreateCart($user_id){
+        $sqlStatement = "Select * from Orders where isCart = 1";
+        $result = Order::$conn->query($sqlStatement);
+        if ($result->num_rows == 0) {
+            //inserting cart to db
+            $sqlStatement = "INSERT INTO Orders(isCart) values (1)";
+            if (Order::$conn->query($sqlStatement) === TRUE) {
+                //entery was added to DB so we can return new object
+                return new Order(Order::$conn->insert_id, NULL, NULL, 1, NULL);
+            }
+        }
+        //there is product with this name in db
+        return null;
+    }
+    
+    //   this function return:
+    //   true if order was deleted
+    //   false if not
+    public static function DeleteOrder($toDeleteId){
+        $sql = "DELETE FROM Orders WHERE id = {$toDeleteId}";
+        if (Order::$conn->query($sql) === TRUE) {
+            return true;
+        }
+        return false;
+    }
+    
+    //   this function return:
+    //   array with all Orders
+    public static function GetAllOrders($limit = 0){
+        $ret = array();
+        $sqlStatement = "Select * from Orders where isCart = 0";
+        if($limit > 0){
+            $sqlStatement .= " LIMIT $limit";
+        }
+        $result = Order::$conn->query($sqlStatement);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()){
+                $ret[] = new Order($row['id'], $row['user_id'], $row['status'], $row['isCart'], $row['paymentType']);
+            }
+        }
+        return $ret;
+    }
+    
+    //  this function return:
+    //  Order with required id or null if doesn't exist
+    public static function GetOrder($id){
+        $sqlStatement = "Select * from Orders where id = '$id'";
+        $result = Order::$conn->query($sqlStatement);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return new Order($row['id'], $row['user_id'], $row['status'], $row['isCart'], $row['paymentType']);
+        }
+        return null;
+    }
+    
+    //  this function return Cart if exist
+    public static function GetCart(){
+        $sqlStatement = "Select * from Orders where isCart = 1";
+        $result = Order::$conn->query($sqlStatement);
+        if ($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            return new Order($row['id'], $row['user_id'], $row['status'], $row['isCart'], $row['paymentType']);
+        }
         return null;
     }
     
@@ -67,10 +133,9 @@ class Order {
     //   true if user exist in db
     public static function checkUserId($user_id){
         
-        $sqlStatement = "Select * from Users where id = '$user_id'";
-        $result = User::$conn->query($sqlStatement);
-        if ($result->num_rows == 1) {
-            return TRUE;
+        $result = User::GetUser($user_id);
+        if (is_object($result)) {
+            return TRUE;            
         }
         return null;
     }
@@ -106,7 +171,7 @@ class Order {
     //   null if isCart is different than null or true
     //   true if status is null or true
     public static function checkIsCart($isCart){        
-        if ($isCart == NULL || $isCart == TRUE) {
+        if ($isCart == 0 || $isCart == 1) {
             return TRUE;
         }
         return null;
@@ -138,5 +203,11 @@ class Order {
         return NULL;        
     }
 
-
+    //this function is responsible for saving any changes done to Order to database
+    public function saveToDB(){
+        $sql = "UPDATE Orders SET id={$this->id}, user_id={$this->user_id},"
+        . "status='{$this->status}', isCart={$this->isCart},"
+        . "paymentType='{$this->paymentType}' WHERE id={$this->id}";
+        return Order::$conn->query($sql);
+    }
 }
