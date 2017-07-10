@@ -45,7 +45,7 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase {
     }
     
     public function testCreateOrderNull() { 
-        $order = Order::CreateOrder(1, 'paid', NULL, 'cash');
+        $order = Order::CreateOrder('ala', 'paid', NULL, 'cash');
         $this->assertNull($order);
     } 
     

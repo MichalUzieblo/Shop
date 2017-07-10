@@ -32,68 +32,106 @@ class Order {
     //   null if Order exist in database
     //   new Order object if new entry was added to table
     public static function CreateOrder($user_id, $status, $isCart, $paymentType){
-
+        
         $sqlStatement = "INSERT INTO Orders(user_id, status, isCart, paymentType) values ($user_id, '$status', '$isCart', '$paymentType')";
         if (Order::$conn->query($sqlStatement) === TRUE) {
             //entery was added to DB so we can return new object
             return new Order(Order::$conn->insert_id, $user_id, $status, $isCart, $paymentType);
         }
-        //there is error with sql
+        //there is an error with sql
         return null;
     }
     
-    function getId() {
+    public function getId() {
         return $this->id;
     }
 
-    function getUser_id() {
+    public function getUser_id() {
         return $this->user_id;
     }
 
-    function getStatus() {
+    public function getStatus() {
         return $this->status;
     }
 
-    function getIsCart() {
+    public function getIsCart() {
         return $this->isCart;
     }
 
-    function getPaymentType() {
+    public function getPaymentType() {
         return $this->paymentType;
     }
-
-    function setUser_id($user_id) {
-        //before set user_id check id in User table
+    
+    //   this function returns:
+    //   null if user does not exist in database
+    //   true if user exist in db
+    public static function checkUserId($user_id){
+        
         $sqlStatement = "Select * from Users where id = '$user_id'";
         $result = User::$conn->query($sqlStatement);
         if ($result->num_rows == 1) {
-            // user exist so we can join this user with order
-            $this->user_id = $user_id;            
+            return TRUE;
+        }
+        return null;
+    }
+
+    public function setUser_id($user_id) {
+        
+        if ($this->checkUserId($user_id)) {
+            $this->user_id = $user_id; 
+            return $this;
         }
         return NULL;
     }
 
-    function setStatus($status) {
-        //status can take only two values
+    //   this function returns:
+    //   null if status is different than paid or not paid
+    //   true if status is paid or not paid
+    public static function checkStatus($status){        
         if ($status == 'paid' || $status == 'not paid') {
+            return TRUE;
+        }
+        return null;
+    }
+    
+    public function setStatus($status) {
+        if ($this->checkStatus($status)) {
             $this->status = $status;
             return $this;
         }
         return NULL;
     }
-
-    function setIsCart($isCart) {
-        //isCart can take only two values
+    
+    //   this function returns:
+    //   null if isCart is different than null or true
+    //   true if status is null or true
+    public static function checkIsCart($isCart){        
         if ($isCart == NULL || $isCart == TRUE) {
+            return TRUE;
+        }
+        return null;
+    }
+
+    public function setIsCart($isCart) {
+        if ($this->checkIsCart($isCart)) {
             $this->isCart = $isCart;
             return $this;
         }
         return NULL;        
     }
-
-    function setPaymentType($paymentType) {
-        //paymentType can take only two values
+    
+    //   this function returns:
+    //   null if paymentType is different than cash or transfer
+    //   true if paymentType is cash or transfer
+    public static function checkPaymentType($paymentType){        
         if ($paymentType == 'cash' || $paymentType == 'transfer') {
+            return TRUE;
+        }
+        return null;
+    }
+
+    public function setPaymentType($paymentType) {
+        if ($this->checkPaymentType($paymentType)) {
             $this->paymentType = $paymentType;
             return $this;
         }
