@@ -91,26 +91,9 @@ switch ($switch) {
             
             <form action="" method="post" role="form">
                 <legend>Hello <?php echo $user->getName(); ?></legend>
-                <div class="form-group">
-                    <label for="">New Name</label>
-                    <input type="text" class="form-control" name="name" id="name"
-                           value='<?php echo $user->getName(); ?>'>
-                </div>
-                <div class="form-group">
-                    <label for="">New Surname</label>
-                    <input type="text" class="form-control" name="surname" id="username"
-                           value='<?php echo $user->getSurname(); ?>'>
-                </div>
-                <div class="form-group">
-                    <label for="">New E-mail</label>
-                    <input type="email" class="form-control" name="email" id="email"
-                           value='<?php echo $user->getEmail(); ?>'>
-                </div>
-                <div class="form-group">
-                    <label for="">New Address</label>
-                    <input type="text" class="form-control" name="address" id="address"
-                           value='<?php echo $user->getAddress(); ?>'>
-                </div>
+                <?php
+                require_once dirname(__FILE__) . "/updateForm.php";
+                ?>                
                 <div class="form-group">
                     <label for="">New password</label>
                     <input type="password" class="form-control" name="password" id="email"
@@ -119,9 +102,7 @@ switch ($switch) {
                            placeholder="Repeat new password">
                 </div>
                 <center><button type="submit" value="editProfile" class="btn btn-success">Save</button></center>              
-            <center>
-            
-            </center>
+            </form>
                 
         </div>
         

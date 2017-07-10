@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once dirname(__FILE__) . "/../connection/connect.php";
+require_once dirname(__FILE__) . "/../log/isLogged.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && (!empty($_POST['add']) || !empty($_POST['del']))) {
     
