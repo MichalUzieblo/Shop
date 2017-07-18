@@ -2,7 +2,6 @@
 session_start();
 require_once dirname(__FILE__) . "/../connection/connect.php";
 require_once dirname(__FILE__) . "/../log/isLogged.php";
-var_dump($_POST, $_SESSION);
 
 $areProducts = FALSE;
 
@@ -13,7 +12,7 @@ if (isset($_SESSION['idProductsInCart'])) {
     $idProductsInCart = [];
     $areProducts = FALSE;
 }
-var_dump($idProductsInCart);
+
 $isConfirmed = FALSE;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['name'])
@@ -24,11 +23,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['name'])
     $address = trim($_POST['address']);
     $paymentType = trim($_POST['paymentType']);
     $order = Order::CreateOrder($user->getId(), 'not paid', $paymentType, $name, $surname, $address);
-//    $ TODO saving to db table Orders and table Products_Orders
-    if (is_object($order)) {
+   
+    $order_id = $order ->getId();    
+    $orderedProductsId = array_count_values($idProductsInCart);
+    
+    foreach ($orderedProductsId as $product_id => $quantity) {
+        
+        $product = Product::GetProduct($product_id);
+        $fixed_price = $product->getPrice();
+        
+        $product_order = Product_Order::CreateProduct_Order($product_id, $order_id, $fixed_price, $quantity);
+    }
+
+    if (is_object($order) && is_object($product_order)) {
         $isConfirmed = TRUE;
     }
-    
+    unset($_SESSION['idProductsInCart']); 
 }
 
 $title = 'Shop - Order page';
