@@ -92,8 +92,13 @@ switch ($switch) {
             <form action="" method="post" role="form">
                 <legend>Hello <?php echo $user->getName(); ?></legend>
                 <?php
-                require_once dirname(__FILE__) . "/updateForm.php";
-                ?>                
+                require_once dirname(__FILE__) . "/formUser.php";
+                ?>   
+                <div class="form-group">
+                    <label for="">E-mail</label>
+                    <input type="email" class="form-control" name="email" id="email"
+                           value='<?php echo $user->getEmail(); ?>'>
+                </div>
                 <div class="form-group">
                     <label for="">New password</label>
                     <input type="password" class="form-control" name="password" id="email"

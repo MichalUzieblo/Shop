@@ -8,7 +8,7 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase {
     
     protected function setUp() {
         parent::setUp();
-        $this->order = Order::CreateOrder(1, 'paid', 'cash');
+        $this->order = Order::CreateOrder(1, 'paid', 'cash', 'Joe', 'Kowalsky', 'bukowa street');
     }
     
     public function getConnection() {
@@ -45,7 +45,7 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase {
     }
     
     public function testCreateOrderNull() { 
-        $order = Order::CreateOrder('ala', 'paid', 'cash');
+        $order = Order::CreateOrder('ala', 'paid', 'cash', 'cos', 'cos', 'cos');
         $this->assertNull($order);
     } 
     
@@ -100,7 +100,10 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(1, $this->order->getUser_id());
         $this->assertEquals('paid', $this->order->getStatus());
         $this->assertEquals(0, $this->order->getIsCart());
-        $this->assertEquals('cash', $this->order->getPaymentType());     
+        $this->assertEquals('cash', $this->order->getPaymentType()); 
+        $this->assertEquals('Joe', $this->order->getName());
+        $this->assertEquals('Kowalsky', $this->order->getSurname());
+        $this->assertEquals('bukowa street', $this->order->getAddress());
     }
     
     public function testSetters() {        
@@ -108,6 +111,9 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase {
         $this->order->setStatus('not paid');
         $this->order->setIsCart(1);
         $this->order->setPaymentType('transfer');
+        $this->order->setName('John');
+        $this->order->setSurname('Rambo');
+        $this->order->setAddress('lesna street');
         
         $this->order->saveToDB();
         
@@ -115,6 +121,9 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('not paid', $this->order->getStatus());
         $this->assertEquals(1, $this->order->getIsCart());
         $this->assertEquals('transfer', $this->order->getPaymentType());
+        $this->assertEquals('John', $this->order->getName());
+        $this->assertEquals('Rambo', $this->order->getSurname());
+        $this->assertEquals('lesna street', $this->order->getAddress());
     }
     
     public function testSettersNull() {        

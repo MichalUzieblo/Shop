@@ -2,7 +2,7 @@
 session_start();
 require_once dirname(__FILE__) . "/../connection/connect.php";
 require_once dirname(__FILE__) . "/../log/isLogged.php";
-var_dump($_POST);
+var_dump($_POST, $_SESSION);
 
 $areProducts = FALSE;
 
@@ -13,13 +13,22 @@ if (isset($_SESSION['idProductsInCart'])) {
     $idProductsInCart = [];
     $areProducts = FALSE;
 }
-
+var_dump($idProductsInCart);
 $isConfirmed = FALSE;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['name'])
-        && !empty($_POST['surname']) && !empty($_POST['email'])
-        && !empty($_POST['address']) && $areProducts) {
-    $isConfirmed = TRUE;
+        && !empty($_POST['surname']) && !empty($_POST['address'])
+        && !empty($_POST['paymentType']) && $areProducts) {
+    $name = trim($_POST['name']);
+    $surname = trim($_POST['surname']);
+    $address = trim($_POST['address']);
+    $paymentType = trim($_POST['paymentType']);
+    $order = Order::CreateOrder($user->getId(), 'not paid', $paymentType, $name, $surname, $address);
+//    $ TODO saving to db table Orders and table Products_Orders
+    if (is_object($order)) {
+        $isConfirmed = TRUE;
+    }
+    
 }
 
 $title = 'Shop - Order page';
@@ -82,10 +91,17 @@ require_once dirname(__FILE__) . "/../../html/htmlHeader.php";
                 </p></h3>
             
             <form action="" method="post" role="form">
-                <legend>Check your data to send</legend>
+                <legend>Check your address to send</legend>
                 <?php
-                require_once dirname(__FILE__) . "/../user/updateForm.php";
-                ?>                
+                require_once dirname(__FILE__) . "/../user/formUser.php";
+                ?>   
+                <div class="form-group">
+                    <label for="">Payment type</label>
+                    <select name="paymentType">
+                        <option>cash</option>
+                        <option>transfer</option>
+                    </select>
+                </div>
                 <center><button type="submit" value="editProfile" class="btn btn-success">Submit your order</button></center>              
             </form>
 

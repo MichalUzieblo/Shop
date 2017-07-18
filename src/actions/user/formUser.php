@@ -12,11 +12,6 @@
            value='<?php echo $user->getSurname(); ?>'>
 </div>
 <div class="form-group">
-    <label for="">E-mail</label>
-    <input type="email" class="form-control" name="email" id="email"
-           value='<?php echo $user->getEmail(); ?>'>
-</div>
-<div class="form-group">
     <label for="">Address</label>
     <input type="text" class="form-control" name="address" id="address"
            value='<?php echo $user->getAddress(); ?>'>
