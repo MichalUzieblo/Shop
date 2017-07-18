@@ -46,20 +46,32 @@ class Order {
         return null;
     }
     
-    //   this function returns:
-    //   null if cart exist in database
-    //   new Order object if new entry was added to table
+    //   this function:
+    //   add object if in db is no object for this user_id
+    //   delete cart if cart exist in database for this user, add a new one and returns object
+    //   return null if there is no user
     public static function CreateCart($user_id){
-        $sqlStatement = "Select * from Orders where isCart = 1";
+        $sqlStatement = "Select * from Orders where isCart = 1 and user_id = $user_id";
         $result = Order::$conn->query($sqlStatement);
         if ($result->num_rows == 0) {
             //inserting cart to db
-            $sqlStatement = "INSERT INTO Orders(isCart) values (1)";
+            $sqlStatement = "INSERT INTO Orders(user_id, isCart) values ($user_id, 1)";
             if (Order::$conn->query($sqlStatement) === TRUE) {
-                //entery was added to DB so we can return new object
-                return new Order(Order::$conn->insert_id, NULL, NULL, 1, NULL, NULL, NULL, NULL);
+                //entery was added to DB so we can return object
+                return new Order(Order::$conn->insert_id, $user_id, NULL, 1, NULL, NULL, NULL, NULL);
+            }
+        } elseif ($result->num_rows == 1) {
+            $sqlStatement = "Delete from Orders where isCart = 1 and user_id = $user_id";
+            if (Order::$conn->query($sqlStatement) === TRUE) {
+                //inserting cart to db
+                $sqlStatement = "INSERT INTO Orders(user_id, isCart) values ($user_id, 1)";
+                if (Order::$conn->query($sqlStatement) === TRUE) {
+                    //entery was added to DB so we can return object
+                    return new Order(Order::$conn->insert_id, $user_id, NULL, 1, NULL, NULL, NULL, NULL);
+                }
             }
         }
+        
         //there is product with this name in db
         return null;
     }
@@ -106,13 +118,13 @@ class Order {
         return null;
     }
     
-    //  this function return Cart if exist
-    public static function GetCart(){
-        $sqlStatement = "Select * from Orders where isCart = 1";
+    //  this function return true if cart exist
+    public static function GetCart($user_id){
+        $sqlStatement = "Select * from Orders where isCart = 1 and user_id = $user_id";
         $result = Order::$conn->query($sqlStatement);
         if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
-            return new Order($row['id'], $row['user_id'], $row['status'],
+            return new Order($row['id'], $row['user_id'], $row['status'], 
                     $row['isCart'], $row['paymentType'], $row['name'] , $row['surname'], $row['address']);
         }
         return null;

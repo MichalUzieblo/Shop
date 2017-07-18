@@ -5,10 +5,12 @@ require_once dirname(__FILE__) . "/../../src/actions/connection/connect.php";
 class OrderTest extends PHPUnit_Extensions_Database_TestCase {
     
     private $order;
+    private $cart;
     
     protected function setUp() {
         parent::setUp();
         $this->order = Order::CreateOrder(1, 'paid', 'cash', 'Joe', 'Kowalsky', 'bukowa street');
+        $this->cart = Order::CreateCart(2);
     }
     
     public function getConnection() {
@@ -50,14 +52,18 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase {
     } 
     
     public function testCreateCart() {      
-        $order = Order::CreateCart(1);
-        $this->assertEquals(4, $order->getId());
+        $this->assertEquals(4, $this->cart->getId());
     }
     
-    public function testCreateCartNull() {      
-        $order = Order::CreateCart(1);
-        $order2 = Order::CreateCart(1);
-        $this->assertNull($order2);
+    public function testCreateCartIfExist() { 
+        $cart1 = Order::CreateCart(1);
+        $cart2 = Order::CreateCart(1);
+        $this->assertEquals(1, $cart2->getUser_id());
+    }
+    
+    public function testCreateCartNull() {
+        $cart2 = Order::CreateCart(30);
+        $this->assertNull($cart2);
     }
     
     public function testDeleteOrder() {                
@@ -87,12 +93,13 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase {
     }
     
     public function testGetCart() {   
-        $order = Order::CreateCart(1);        
-        $this->assertEquals(1, $order->GetCart()->getIsCart());
+        $cart = Order::GetCart(2);        
+        $this->assertEquals(4, $cart->getId());
     }
     
-    public function testGetCartNull() {        
-        $this->assertNull($this->order->GetCart());
+    public function testGetCartNull() { 
+        $cart2 = Order::GetCart(30);
+        $this->assertNull($cart2);
     }
     
     public function testGetters() {        
