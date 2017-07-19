@@ -1,7 +1,8 @@
 <?php
-
 require_once dirname(__FILE__) . "/../connection/connect.php";
+require_once dirname(__FILE__) . "/../log/isLogged.php";
 
+if ($isLogged) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['cartOpt'])) {
     
@@ -118,3 +119,8 @@ function printProductsInCart($idProductsInCart) {
     
 </center>
 
+<?php
+} else {
+    header("Location: ../../../index.php");
+}
+?>

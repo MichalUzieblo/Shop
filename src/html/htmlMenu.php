@@ -20,7 +20,7 @@
         <button type="submit" name="productGroup" value="all" class="btn btn-success">All</button>
     </form>
     
-    <?php if (isset($_SESSION['id'])) { ?>
+    <?php if ($isLogged) { ?>
     <legend>Profile</legend>
     <center>
         <form action="src/actions/user/editUser.php" method="post" role="form">

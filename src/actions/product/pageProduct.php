@@ -4,6 +4,8 @@ session_start();
 require_once dirname(__FILE__) . "/../connection/connect.php";
 require_once dirname(__FILE__) . "/../log/isLogged.php";
 
+if ($isLogged) {
+
 $isProductId = FALSE;
 
 if (!empty($_GET['id'])) { 
@@ -106,5 +108,10 @@ require_once dirname(__FILE__) . "/../../html/htmlHeader.php";
 </div>
 
 <?php
+}  else {
+    header("Location: ../../../index.php");
 }
 require_once dirname(__FILE__) . "/../../html/htmlFooter.php";
+} else {
+    header("Location: ../../../index.php");
+}

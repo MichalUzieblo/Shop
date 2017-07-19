@@ -3,6 +3,9 @@
 session_start();
 
 require_once dirname(__FILE__) . "/../connection/connect.php";
+require_once dirname(__FILE__) . "/../log/isLogged.php";
+
+if ($isLogged === FALSE) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])
         && isset($_POST['password'])) {
@@ -113,3 +116,6 @@ require_once dirname(__FILE__) . "/../../html/htmlHeader.php";
 
 <?php
 require_once dirname(__FILE__) . "/../../html/htmlFooter.php";
+} else {
+    header("Location: ../../../index.php");
+}

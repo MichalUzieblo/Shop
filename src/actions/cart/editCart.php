@@ -3,6 +3,8 @@ session_start();
 require_once dirname(__FILE__) . "/../connection/connect.php";
 require_once dirname(__FILE__) . "/../log/isLogged.php";
 
+if ($isLogged) {
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && (!empty($_POST['add']) || !empty($_POST['del']))) {
     
     if (!empty($_POST['add']) && is_numeric($_POST['add'])) { 
@@ -101,3 +103,6 @@ require_once dirname(__FILE__) . "/../../html/htmlHeader.php";
 
 <?php
 require_once dirname(__FILE__) . "/../../html/htmlFooter.php";
+} else {
+    header("Location: ../../../index.php");
+}

@@ -3,6 +3,8 @@ session_start();
 require_once dirname(__FILE__) . "/../connection/connect.php";
 require_once dirname(__FILE__) . "/../log/isLogged.php";
 
+if ($isLogged) {
+
 $areProducts = FALSE;
 
 if (isset($_SESSION['idProductsInCart'])) {
@@ -134,3 +136,6 @@ require_once dirname(__FILE__) . "/../../html/htmlHeader.php";
 
 <?php
 require_once dirname(__FILE__) . "/../../html/htmlFooter.php";
+} else {
+    header("Location: ../../../index.php");
+}

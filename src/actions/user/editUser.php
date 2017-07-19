@@ -4,6 +4,8 @@ session_start();
 require_once dirname(__FILE__) . "/../connection/connect.php";
 require_once dirname(__FILE__) . "/../log/isLogged.php";
 
+if ($isLogged) {
+
 $switch = 0;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['name'])
@@ -119,3 +121,6 @@ switch ($switch) {
                 
 <?php
 require_once dirname(__FILE__) . "/../../html/htmlFooter.php";
+} else {
+    header("Location: ../../../index.php");
+}
