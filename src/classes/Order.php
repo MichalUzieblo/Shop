@@ -105,6 +105,21 @@ class Order {
         return $ret;
     }
     
+    //   this function return:
+    //   array with all Orders of User0
+    public static function GetAllUserOrders($user_id){
+        $ret = array();
+        $sqlStatement = "Select * from Orders where isCart = 0 and user_id = $user_id";
+        $result = Order::$conn->query($sqlStatement);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()){
+                $ret[] = new Order($row['id'], $row['user_id'], $row['status'], 
+                        $row['isCart'], $row['paymentType'], $row['name'] , $row['surname'], $row['address']);
+            }
+        }
+        return $ret;
+    }
+    
     //  this function return:
     //  Order with required id or null if doesn't exist
     public static function GetOrder($id){
@@ -128,6 +143,17 @@ class Order {
                     $row['isCart'], $row['paymentType'], $row['name'] , $row['surname'], $row['address']);
         }
         return null;
+    }
+    
+    //   this function return:
+    //   true if product was deleted
+    //   false if not
+    public static function DeleteCart($user_id){
+        $sqlStatement = "DELETE FROM Orders WHERE isCart = 1 and user_id = $user_id";
+        if (Order::$conn->query($sqlStatement) === TRUE) {
+            return true;
+        }
+        return false;
     }
     
     public function getId() {

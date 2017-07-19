@@ -22,8 +22,13 @@
     
     <?php if (isset($_SESSION['id'])) { ?>
     <legend>Profile</legend>
-    <center><form action="src/actions/user/editUser.php" method="post" role="form">
-        <button type="submit" value="editUser" name="editUser" class="btn btn-success">Edit User</button>
-    </form></center>
+    <center>
+        <form action="src/actions/user/editUser.php" method="post" role="form">
+            <button type="submit" value="editUser" name="editUser" class="btn btn-success">Edit User</button>
+        </form>
+        <form action="src/actions/user/pageUser.php" method="post" role="form">
+            <button type="submit" value="pageUser" name="pageUser" class="btn btn-success">User Page</button>
+        </form>
+    </center>
     <?php } ?>
 </center> 

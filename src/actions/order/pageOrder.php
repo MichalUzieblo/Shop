@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['name'])
 
     if (is_object($order) && is_object($product_order)) {
         $isConfirmed = TRUE;
+        Order::DeleteCart($user->getId());
     }
     unset($_SESSION['idProductsInCart']); 
 }

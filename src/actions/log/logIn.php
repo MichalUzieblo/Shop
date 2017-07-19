@@ -20,21 +20,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])
             unset ($_SESSION['logOut']);
             
             $cart = Order::GetCart($user->getId());
-                        var_dump($cart);
-            $cart_id = $cart->getId();
-            $product_orders = Product_Order::GetAllByOrderId($cart_id);
-            $idProductsInCart = [];
             
-            foreach ($product_orders as $product_order) {
-                $product_id = $product_order ->getProduct_id();
-                $quantity = $product_order ->getQuantity();
-                
-                
-                for ($i = 0; $i < $quantity; $i++) {
-                    $idProductsInCart[] = $product_id;
+            if (is_object($cart)) {
+                $cart_id = $cart->getId();
+                $product_orders = Product_Order::GetAllByOrderId($cart_id);
+                $idProductsInCart = [];
+
+                foreach ($product_orders as $product_order) {
+                    $product_id = $product_order ->getProduct_id();
+                    $quantity = $product_order ->getQuantity();
+
+
+                    for ($i = 0; $i < $quantity; $i++) {
+                        $idProductsInCart[] = $product_id;
+                    }
                 }
+                $_SESSION['idProductsInCart'] = serialize($idProductsInCart);
             }
-            $_SESSION['idProductsInCart'] = serialize($idProductsInCart);
             header("Location: ../../../index.php");
         } else {
             $badPass = 'wrongEmail';

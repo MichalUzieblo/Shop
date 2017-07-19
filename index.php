@@ -3,7 +3,7 @@ session_start();
 require_once dirname(__FILE__) . "/src/actions/connection/connect.php";
 require_once dirname(__FILE__) . "/src/actions/log/isLogged.php";
 require_once dirname(__FILE__) . "/src/actions/log/isLogout.php";
-var_dump($_POST, $_GET, $_SESSION, $_SERVER['DOCUMENT_ROOT']);
+
 $title = 'Shop';
 require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
 
@@ -37,26 +37,24 @@ require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
     
     <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
     </div>
-    
+<!--Menu-->
     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
         <?php
             require_once dirname(__FILE__) . "/src/html/htmlMenu.php";
         ?> 
     </div>
-    
+<!--Carousel with 3 products-->    
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <?php
             require_once dirname(__FILE__) . "/src/html/htmlSlider.php";
         ?>    
     </div>    
-    
+<!--Party with the shopping cart or with login button-->       
     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
         <?php
-        
+     
         if ($isLogged) {
             require_once dirname(__FILE__) . "/src/actions/cart/pageCart.php";
-            
-            
         } else {
             require_once dirname(__FILE__) . "/src/html/htmlStarter.php";
         }
@@ -68,11 +66,12 @@ require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
     </div>
     
 </div>
+
     <div>
     <hr>
     </div>
  
- 
+<!--Place to show all products or filtrated products-->
 <div class="row">
     <?php
         require_once dirname(__FILE__) . "/src/html/htmlProducts.php";
