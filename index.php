@@ -4,9 +4,6 @@ require_once dirname(__FILE__) . "/src/actions/connection/connect.php";
 require_once dirname(__FILE__) . "/src/actions/log/isLogged.php";
 require_once dirname(__FILE__) . "/src/actions/log/isLogout.php";
 
-$title = 'Shop';
-require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
-
 $productGroup = 'all';
 $isProductId = FALSE;
 
@@ -29,6 +26,8 @@ if (!empty($_POST['productGroup'])) {
 } else {
     $productGroup = 'all';
 }
+
+$title = 'Shop';
 require_once dirname(__FILE__) . "/src/html/htmlHeader.php";
 ?>
 

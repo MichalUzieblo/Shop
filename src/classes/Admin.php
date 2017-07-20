@@ -30,8 +30,8 @@ class Admin {
     //this function returns:
     //   null if admin does not exist in database or password does not match
     //   new Admin object if Admin was authenticated
-    public static function AuthenticateAdmin($userMail, $password){
-        $sqlStatement = "Select * from Admins where email = '$userMail'";
+    public static function AuthenticateAdmin($adminMail, $password){
+        $sqlStatement = "Select * from Admins where email = '$adminMail'";
         $result = Admin::$conn->query($sqlStatement);
         if ($result->num_rows == 1) {
             $adminData = $result->fetch_assoc();
