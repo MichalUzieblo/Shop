@@ -7,6 +7,7 @@ require_once dirname(__FILE__) . "/../../classes/User.php";
 require_once dirname(__FILE__) . "/../../../panel/src/classes/Admin.php";
 require_once dirname(__FILE__) . "/../../classes/Order.php";
 require_once dirname(__FILE__) . "/../../classes/Product_Order.php";
+require_once dirname(__FILE__) . "/../../../panel/src/classes/ProductGroup.php";
 
 
 $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_DBNAME);
@@ -21,3 +22,4 @@ ProductPhoto::SetConnection($conn);
 Admin::SetConnection($conn);
 Order::SetConnection($conn);
 Product_Order::SetConnection($conn);
+ProductGroup::SetConnection($conn);
