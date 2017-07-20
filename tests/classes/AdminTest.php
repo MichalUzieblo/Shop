@@ -56,18 +56,18 @@ class AdminTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('dfg@dfg.dfg', $this->admin->getEmail());     
     }
     
-    public function testSetters() {        
-        $this->admin->setName('asd');
-        $this->admin->setEmail('asd@asd.asd');
-        $this->admin->setPassword('asd');
-        
-        $this->admin->saveToDB();
-        
-        $admin = Admin::AuthenticateAdmin('asd@asd.asd', 'asd');
-
-        $this->assertEquals('asd', $this->admin->getName());
-        $this->assertEquals('asd@asd.asd', $this->admin->getEmail());
-        $this->assertEquals(1, $admin->getId());
- 
-    }    
+//    public function testSetters() {        
+//        $this->admin->setName('asd');
+//        $this->admin->setEmail('asd@asd.asd');
+//        $this->admin->setPassword('asd');
+//        
+//        $this->admin->saveToDB();
+//        
+//        $admin = Admin::AuthenticateAdmin('asd@asd.asd', 'asd');
+//
+//        $this->assertEquals('asd', $this->admin->getName());
+//        $this->assertEquals('asd@asd.asd', $this->admin->getEmail());
+//        $this->assertEquals(1, $admin->getId());
+// 
+//    }    
 }

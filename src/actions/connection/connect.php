@@ -4,7 +4,7 @@ require_once dirname(__FILE__) . "/../../../config/database.php";
 require_once dirname(__FILE__) . "/../../classes/Product.php";
 require_once dirname(__FILE__) . "/../../classes/ProductPhoto.php";
 require_once dirname(__FILE__) . "/../../classes/User.php";
-require_once dirname(__FILE__) . "/../../classes/Admin.php";
+require_once dirname(__FILE__) . "/../../../panel/src/classes/Admin.php";
 require_once dirname(__FILE__) . "/../../classes/Order.php";
 require_once dirname(__FILE__) . "/../../classes/Product_Order.php";
 

@@ -1,27 +1,35 @@
 <?php
 session_start();
+//Connection modul we will use from main part of application
 require_once dirname(__FILE__) . "/../src/actions/connection/connect.php";
-require_once dirname(__FILE__) . "/../src/actions/log/isLogged.php";
-//require_once dirname(__FILE__) . "/../src/actions/log/isLogout.php";
+//Checking modul from admin part
+require_once dirname(__FILE__) . "/src/actions/log/isLogged.php";
+
 
 //place for logic part
 
 
-
+var_dump($_SESSION);
 
 
 
 $title = 'Shop - admin panel';
+//Header we will use from main part of application
 require_once dirname(__FILE__) . "/../src/html/htmlHeader.php";
 ?>
 
 <div class="row">
     
     <center>
-        <form action="../src/actions/log/logIn.php" method="post" role="form" id="center">
+        <?php if ($isLoggedAdmin === FALSE) { ?>
+        <form action="src/actions/log/logIn.php" method="post" role="form" id="center">
             <button type="submit" value="logInAdmin" name="logInAdmin" class="btn btn-success">Log in</button>
         </form>
-              
+        <?php } else { ?>
+        <form action="src/actions/log/logOut.php" method="post" role="form" id="center">
+            <button type="submit" value="logOutAdmin" name="logOutAdmin" class="btn btn-success">Log out</button>
+        </form> 
+        <?php } ?>
     </center> 
     
 </div>
@@ -59,4 +67,5 @@ require_once dirname(__FILE__) . "/../src/html/htmlHeader.php";
 </div> 
 
 <?php
+//Footer we will use from main part of application
 require_once dirname(__FILE__) . "/../src/html/htmlFooter.php";

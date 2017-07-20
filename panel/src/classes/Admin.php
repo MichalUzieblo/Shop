@@ -67,26 +67,26 @@ class Admin {
         return $this->email;
     }
 
-    public function setName($name) {
-        $this->name = $name;
-    }
-
-    public function setEmail($email) {
-        $this->email = $email;
-    }
-    
-    public function setPassword($newPassword){
-        $options = [
-            'cost' => 11,
-            'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
-        ];
-        $this->password = password_hash($newPassword, PASSWORD_BCRYPT, $options);
-    }
+//    public function setName($name) {
+//        $this->name = $name;
+//    }
+//
+//    public function setEmail($email) {
+//        $this->email = $email;
+//    }
+//    
+//    public function setPassword($newPassword){
+//        $options = [
+//            'cost' => 11,
+//            'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
+//        ];
+//        $this->password = password_hash($newPassword, PASSWORD_BCRYPT, $options);
+//    }
 
     //this function is responsible for saving any changes done to Admin to database
-    public function saveToDB(){
-        $sql = "UPDATE Admins SET name='{$this->name}', email='{$this->email}', password='{$this->password}' WHERE id={$this->id}";
-        return Admin::$conn->query($sql);
-    }
+//    public function saveToDB(){
+//        $sql = "UPDATE Admins SET name='{$this->name}', email='{$this->email}', password='{$this->password}' WHERE id={$this->id}";
+//        return Admin::$conn->query($sql);
+//    }
 
 }
