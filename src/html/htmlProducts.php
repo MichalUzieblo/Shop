@@ -2,14 +2,18 @@
 
 require_once dirname(__FILE__) . "/../actions/connection/connect.php";
 
-if (!empty($productGroup)) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['productGroupId'])) {
     
-    if ($productGroup == 'offices' || $productGroup == 'residential' 
-        || $productGroup == 'hotels' || $productGroup == 'mixed') {
-        $products = Product::GetAllProductsByGroup($productGroup);
+    $productGroup_id = $_POST['productGroupId'];
+    
+    if (is_numeric($productGroup_id)) {
+        $products = Product::GetAllProductsByGroup($productGroup_id);
     } else {
-        $products = Product::GetAllProducts();
+    $products = Product::GetAllProducts();
     }
+}  else {
+    $products = Product::GetAllProducts();        
+        
 }
 
 function printProducts ($products) {

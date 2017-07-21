@@ -35,6 +35,20 @@ class ProductGroup {
         return null;
     }    
     
+    //this function return:
+    // array with all ProductGroups
+    public static function GetAllProductGroups(){
+        $ret = array();
+        $sqlStatement = "Select * from ProductGroups";
+        $result = ProductGroup::$conn->query($sqlStatement);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()){
+                $ret[] = new ProductGroup($row['id'], $row['name']);
+            }
+        }
+        return $ret;
+    }
+    
     //TODO
     //GetAllProductGroups
     //AddNewProductGroup
@@ -55,8 +69,7 @@ class ProductGroup {
                 
     //this function is responsible for saving any changes done to ProductPhotos to database
     public function saveToDB(){
-        $sql = "UPDATE ProductPhotos SET product_id={$this->product_id}, path='{$this->path}' "
-        . ", name='{$this->name}'WHERE id={$this->id}";
+        $sql = "UPDATE ProductGroups SET name='{$this->name}' WHERE id={$this->id}";
         return ProductGroup::$conn->query($sql);
     }
 

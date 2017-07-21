@@ -1,23 +1,20 @@
+<?php
+$ret = ProductGroup::GetAllProductGroups();
+?>
+
 <center>
     <legend>Menu</legend>
+    
+    <?php foreach ($ret as $productGroup) {
+        $id = $productGroup->getId();
+        $name = $productGroup->getName();
+    ?>
     <form action="" method="post" role="form" id="center">                                       
-        <button type="submit" name="productGroup" value="offices" class="btn btn-success">Offices</button>
+        <button type="submit" name="productGroupId" value="<?php echo $id ?>" class="btn btn-success"><?php echo $name ?></button>
     </form>
-    <!--<br>-->
+    <?php } ?>
     <form action="" method="post" role="form">
-        <button type="submit" name="productGroup" value="residential" class="btn btn-success">Residential</button>
-    </form> 
-    <!--<br>-->
-    <form action="" method="post" role="form">
-        <button type="submit" name="productGroup" value="hotels" class="btn btn-success">Hotels</button>
-    </form>
-    <!--<br>-->
-    <form action="" method="post" role="form">
-        <button type="submit" name="productGroup" value="mixed" class="btn btn-success">Mixed</button>
-    </form>
-    <!--<br>-->
-    <form action="" method="post" role="form">
-        <button type="submit" name="productGroup" value="all" class="btn btn-success">All</button>
+        <button type="submit" name="productGroupId" value="all" class="btn btn-success">All</button>
     </form>
     
     <?php if ($isLogged) { ?>

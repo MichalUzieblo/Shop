@@ -8,7 +8,7 @@ class Product {
     private $price;
     private $description;
     private $inStock;
-    private $type;
+    private $productGroup_id;
 
     // This function sets connection for this class to use
     // This function needs to be run on startup
@@ -16,13 +16,13 @@ class Product {
         Product::$conn = $newConnection;
     }
     
-    private function __construct($newId, $newName, $newPrice, $newDescription, $newInStock, $type){
+    private function __construct($newId, $newName, $newPrice, $newDescription, $newInStock, $productGroup_id){
         $this->id = $newId;
         $this->name = $newName;
         $this->price = $newPrice;
         $this->description = $newDescription;        
         $this->inStock = $newInStock;
-        $this->type = $type;
+        $this->productGroup_id = $productGroup_id;
     }
     
     //this function returns:
@@ -34,10 +34,10 @@ class Product {
         if ($result->num_rows == 0) {
             //inserting product to db
             $inStock = 0;
-            $sqlStatement = "INSERT INTO Products(name, price, description, inStock, type) values ('$name', $price, 'cos', $inStock, 'cos')";
+            $sqlStatement = "INSERT INTO Products(name, price, description, inStock, productGroup_id) values ('$name', $price, 'cos', $inStock, NULL)";
             if (Product::$conn->query($sqlStatement) === TRUE) {
                 //entery was added to DB so we can return new object
-                return new Product(Product::$conn->insert_id, $name, $price, 'cos', $inStock, 'cos');
+                return new Product(Product::$conn->insert_id, $name, $price, 'cos', $inStock, NULL);
             }
         }
         //there is product with this name in db
@@ -66,7 +66,7 @@ class Product {
         $result = Product::$conn->query($sqlStatement);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()){
-                $ret[] = new Product($row['id'], $row['name'], $row['price'], $row['description'], $row['inStock'], $row['type']);
+                $ret[] = new Product($row['id'], $row['name'], $row['price'], $row['description'], $row['inStock'], $row['productGroup_id']);
             }
         }
         return $ret;
@@ -74,14 +74,14 @@ class Product {
     
     //this function return:
     // array with all Products from required group
-    public static function GetAllProductsByGroup($type){
+    public static function GetAllProductsByGroup($productGroup_id){
         $ret = array();
-        $sqlStatement = "Select * from Products where type = '$type'";
+        $sqlStatement = "Select * from Products where productGroup_id = $productGroup_id";
         
         $result = Product::$conn->query($sqlStatement);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()){
-                $ret[] = new Product($row['id'], $row['name'], $row['price'], $row['description'], $row['inStock'], $row['type']);
+                $ret[] = new Product($row['id'], $row['name'], $row['price'], $row['description'], $row['inStock'], $row['productGroup_id']);
             }
         }
         return $ret;
@@ -94,7 +94,7 @@ class Product {
         $result = Product::$conn->query($sqlStatement);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            return new Product($id, $row['name'], $row['price'], $row['description'], $row['inStock'], $row['type']);
+            return new Product($id, $row['name'], $row['price'], $row['description'], $row['inStock'], $row['productGroup_id']);
         }
         return null;
     }
@@ -121,8 +121,8 @@ class Product {
         return $this->inStock;
     }
     
-    function getType() {
-        return $this->type;
+    function getProductGroup_id() {
+        return $this->productGroup_id;
     }
 
     function setName($name) {
@@ -141,14 +141,14 @@ class Product {
         $this->inStock = $inStock;
     }
     
-    function setType($type) {
-        $this->type = $type;
+    function setProductGroup_id($productGroup_id) {
+        $this->productGroup_id = $productGroup_id;
     }
 
     
     //this function is responsible for saving any changes done to User to database
     public function saveToDB(){
-        $sql = "UPDATE Products SET name='{$this->name}', price='{$this->price}', description='{$this->description}', inStock='{$this->inStock}' WHERE id={$this->id}";
+        $sql = "UPDATE Products SET name='{$this->name}', price='{$this->price}', description='{$this->description}', inStock='{$this->inStock}', productGroup_id='{$this->productGroup_id}' WHERE id={$this->id}";
         return Product::$conn->query($sql);
     }
 }

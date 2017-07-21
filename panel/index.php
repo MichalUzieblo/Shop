@@ -5,7 +5,7 @@ require_once dirname(__FILE__) . "/../src/actions/connection/connect.php";
 //Checking modul from admin part
 require_once dirname(__FILE__) . "/src/actions/log/isLogged.php";
 
-
+$manageType = "Nothing";
 //place for logic part
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['manageType'])) {
     $manageType = trim($_POST['manageType']);
@@ -28,7 +28,7 @@ require_once dirname(__FILE__) . "/../src/html/htmlHeader.php";
         <form action="src/actions/log/logOut.php" method="post" role="form" id="center">
             <button type="submit" value="logOutAdmin" name="logOutAdmin" class="btn btn-success">Log out</button>
         </form> 
-        <?php } ?>
+        
     </center>     
 </div>
 
@@ -102,5 +102,6 @@ require_once dirname(__FILE__) . "/../src/html/htmlHeader.php";
 </div> 
 
 <?php
+}
 //Footer we will use from main part of application
 require_once dirname(__FILE__) . "/../src/html/htmlFooter.php";

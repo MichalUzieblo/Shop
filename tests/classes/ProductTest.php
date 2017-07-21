@@ -63,8 +63,8 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
     }
     
     public function testGetAllProductsByGroup() {
-        $ret = Product::GetAllProductsByGroup('cos');
-        $this->assertSame($this->product->getName(), $ret[0]->getName());
+        $ret = Product::GetAllProductsByGroup(4);
+        $this->assertCount(3, $ret);
     }
     
     public function testGetAllProductsLimit() {
@@ -86,7 +86,7 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(1.99, $this->product->getPrice());
         $this->assertEquals('cos', $this->product->getDescription());
         $this->assertEquals(0, $this->product->getInStock());     
-        $this->assertEquals('cos', $this->product->getType());
+        $this->assertEquals(NULL, $this->product->getProductGroup_id());
     }
     
     public function testSetters() {        
@@ -94,7 +94,7 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $this->product->setPrice(1.35);
         $this->product->setDescription('still');
         $this->product->setInStock(5);
-        $this->product->setType('office');
+        $this->product->setProductGroup_id('house');
         
         $this->product->saveToDB();
 
@@ -102,6 +102,6 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(1.35, $this->product->getPrice());
         $this->assertEquals('still', $this->product->getDescription());
         $this->assertEquals(5, $this->product->getInStock());  
-        $this->assertEquals('office', $this->product->getType()); 
+        $this->assertEquals('house', $this->product->getProductGroup_id()); 
     } 
 }

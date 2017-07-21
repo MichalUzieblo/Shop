@@ -52,6 +52,12 @@ $shopArraysSQL = array(
                         FOREIGN KEY(order_id) REFERENCES Orders(id) ON DELETE CASCADE,
                         FOREIGN KEY(product_id) REFERENCES Products(id) ON DELETE CASCADE)
      ENGINE=InnoDB, CHARACTER SET=utf8"
+,
+    "create table ProductGroups(
+                        id int AUTO_INCREMENT NOT NULL,
+                        name varchar(48) NOT NULL,
+                        PRIMARY KEY(id),
+     ENGINE=InnoDB, CHARACTER SET=utf8"
     
     );
 
