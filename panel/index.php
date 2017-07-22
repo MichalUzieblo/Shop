@@ -86,13 +86,13 @@ require_once dirname(__FILE__) . "/../src/html/htmlHeader.php";
     
     <?php
     if ($manageType == 'groupManage' ) {
-        require_once dirname(__FILE__) . "/src/actions/manage/groupManage.php";
+        require_once dirname(__FILE__) . "/src/actions/manage/group/groupManage.php";
     } elseif ($manageType == 'productManage' ) {
-        require_once dirname(__FILE__) . "/src/actions/manage/productManage.php";
+        require_once dirname(__FILE__) . "/src/actions/manage/product/productManage.php";
     } elseif ($manageType == 'userManage' ) {
-        require_once dirname(__FILE__) . "/src/actions/manage/userManage.php";
+        require_once dirname(__FILE__) . "/src/actions/manage/user/userManage.php";
     } elseif ($manageType == 'orderManage' ) {
-        require_once dirname(__FILE__) . "/src/actions/manage/orderManage.php";
+        require_once dirname(__FILE__) . "/src/actions/manage/order/orderManage.php";
     }        
     ?>
     
