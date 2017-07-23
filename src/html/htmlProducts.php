@@ -30,7 +30,7 @@ function printProducts ($products) {
         
         echo $value->getPrice() . '<br>';
         echo $value->getDescription() . '<br>';
-        echo '</div/center>';
+        echo '</div></center>';
         $i++;
         if ($i % 5 == 0) {
             

@@ -11,39 +11,71 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['manageType'])) {
 
 }
 
-function printProductGroups ($productGroups) {
-    
-    echo '<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">';
-    echo '</div>';
 
-    echo '<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">';
+function printProductGroups ($productGroups, &$i) {
+    
+    echo '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">';
+    echo '</div>';
+    
      
     foreach ($productGroups as $productGroup) {
+        echo '<center><div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">';
+        
         $name = $productGroup->getName();
         echo "$name<br>";
         
         echo '<a href="src/actions/manage/group/groupEdit.php?'
-        . 'id='.$productGroup->getId().'">Edit</a><br>';
+        . 'id='.$productGroup->getId().'" type="submit" class="btn btn-default">Edit</a><br>';
         echo '<a href="src/actions/manage/group/groupDelete.php?'
-        . 'id='.$productGroup->getId().'">Delete</a><br>'; 
-
+        . 'id='.$productGroup->getId().'" type="submit" class="btn btn-default">Delete</a><br>'; 
+        
+        echo '</div></center>';
+        $i++;
+        if ($i % 6 == 0) {
+            
+            echo '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">';
+            echo '</div>';
+            echo '</div>';
+            
+            echo '<div class="row">';
+            echo 'p';
+            echo '</div>';
+            
+            echo '<div class="row">';
+            
+            echo '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">';
+            echo '</div>';            
+            
+        }
     }
-    echo '</div>';
-
 }
 
-echo '<div class="row">';
+$i = 1;
+printProductGroups($productGroups, $i);
 
-    printProductGroups($productGroups); 
+if ($i % 6 == 0) {
+            
+    echo '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">';
+    echo '</div>';
+    echo '</div>';
 
-    echo '<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">';
-        echo '<a href="src/actions/manage/group/groupAdd.php">Add Group</a><br>';
+    echo '<div class="row">';
+    echo 'p';
+    echo '</div>';
+
+    echo '<div class="row">';
+
+    echo '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">';
     echo '</div>';
     
-    echo '<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">';
-    echo '</div>';
-    
-    echo '<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">';
-    echo '</div>';
-echo '</div>';
-    
+    echo '<center><div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">';
+    echo '<a href="src/actions/manage/group/groupAdd.php" type="submit" class="btn btn-default">Add Group</a>';
+    echo '</div></center>';
+
+} else {
+    echo '<center><div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">';
+    echo '<a href="src/actions/manage/group/groupAdd.php" type="submit" class="btn btn-default">Add Group</a>';
+    echo '</div></center>';
+}
+
+?>
