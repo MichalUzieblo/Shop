@@ -53,6 +53,22 @@ class ProductGroupTest extends PHPUnit_Extensions_Database_TestCase {
         $ret = ProductGroup::GetAllProductGroups();
         $this->assertEquals(3, $ret[2]->getId());
     }
+    
+    public function testDeleteProductGroup() {                
+        $this->assertTrue(ProductGroup::DeleteProductGroup($this->productGroup->getId()));
+    }
+    
+    public function testDeleteProductGroupFalse() {                
+        $this->assertFalse(ProductGroup::DeleteProductGroup('asd'));
+    }
+    
+    public function testGetProductGroup() {        
+        $this->assertSame($this->productGroup->getName(), ProductGroup::GetProductGroup(5)->getName());
+    }
+    
+    public function testGetProductGroupNull() {        
+        $this->assertNull(ProductGroup::GetProductGroup(12));
+    }
          
     public function testGetterAndSetters() {        
 

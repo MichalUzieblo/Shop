@@ -11,9 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['manageType'])) {
     $manageType = trim($_POST['manageType']);
 }
 
-var_dump($_POST);
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['manageType'])) {
+    $manageType = trim($_GET['manageType']);
+}
 
-$title = 'Shop - admin panel';
+var_dump($_POST);
+var_dump($_GET);
+$title = 'Shop admin - panel';
 //Header we will use from main part of application
 require_once dirname(__FILE__) . "/../src/html/htmlHeader.php";
 ?>
@@ -24,7 +28,7 @@ require_once dirname(__FILE__) . "/../src/html/htmlHeader.php";
         <form action="src/actions/log/logIn.php" method="post" role="form" id="center">
             <button type="submit" value="logInAdmin" name="logInAdmin" class="btn btn-success">Log in</button>
         </form>
-        <?php } else { ?>
+        <?php } elseif ($isLoggedAdmin) { ?>
         <form action="src/actions/log/logOut.php" method="post" role="form" id="center">
             <button type="submit" value="logOutAdmin" name="logOutAdmin" class="btn btn-success">Log out</button>
         </form> 

@@ -49,10 +49,28 @@ class ProductGroup {
         return $ret;
     }
     
-    //TODO
-    //GetAllProductGroups
-    //AddNewProductGroup
-    //DeleteProductGroup
+    //this function return:
+    //   true if productGroup was deleted
+    //   false if not
+    public static function DeleteProductGroup($toDeleteId){
+        $sql = "DELETE FROM ProductGroups WHERE id = {$toDeleteId}";
+        if (ProductGroup::$conn->query($sql) === TRUE) {
+            return true;
+        }
+        return false;
+    }
+    
+    // this function return:
+    //  ProductGroup with required id or null if doesn't exist
+    public static function GetProductGroup($id){
+        $sqlStatement = "Select * from ProductGroups where id = '$id'";
+        $result = ProductGroup::$conn->query($sqlStatement);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return new ProductGroup($id, $row['name']);
+        }
+        return null;
+    }
     
     public function getId(){
         return $this->id;

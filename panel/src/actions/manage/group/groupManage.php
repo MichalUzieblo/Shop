@@ -3,16 +3,21 @@
 //require_once dirname(__FILE__) . "/../src/actions/connection/connect.php";
 require_once dirname(__FILE__) . "/../../../../../src/actions/connection/connect.php";
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['manageType'])) {
-    
-    $manageType = $_POST['manageType'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['manageType'])){
 
+    $manageType = $_POST['manageType'];
+    $productGroups = ProductGroup::GetAllProductGroups();
+    
+} elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['manageType'])){
+    
+    $manageType = $_GET['manageType'];
     $productGroups = ProductGroup::GetAllProductGroups();
 
 }
 
 
-function printProductGroups ($productGroups, &$i) {
+
+function printProductGroups ($productGroups, $i) {
     
     echo '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">';
     echo '</div>';
@@ -31,7 +36,7 @@ function printProductGroups ($productGroups, &$i) {
         
         echo '</div></center>';
         $i++;
-        if ($i % 6 == 0) {
+        if ($i % 5 == 0) {
             
             echo '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">';
             echo '</div>';
@@ -48,12 +53,13 @@ function printProductGroups ($productGroups, &$i) {
             
         }
     }
+    return $i;
 }
 
-$i = 1;
-printProductGroups($productGroups, $i);
+$i = 0;
+$i = printProductGroups($productGroups, $i);
 
-if ($i % 6 == 0) {
+if ($i % 5 == 0) {
             
     echo '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">';
     echo '</div>';
