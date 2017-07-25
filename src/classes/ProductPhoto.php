@@ -6,7 +6,6 @@ class ProductPhoto {
     private $id;
     private $product_id;
     private $path;
-    private $name;
     
     // This function sets connection for this class to use
     // This function needs to be run on startup
@@ -14,30 +13,28 @@ class ProductPhoto {
         ProductPhoto::$conn = $newConnection;
     }
     
-    private function __construct($newId, $newProduct_Id, $newPath, $newName){
+    private function __construct($newId, $newProduct_Id, $newPath){
         $this->id = $newId;
         $this->product_id = $newProduct_Id;
-        $this->path = $newPath;    
-        $this->name = $newName; 
+        $this->path = $newPath;
     }
     
     //this function returns:
-    //   null if photo exist in database
-    //   new Product object if new entry was added to table
-    public static function CreateProductPhoto($product_Id, $path, $name){
-        $sqlStatement = "Select * from ProductPhotos where name = '$name'";
+    //   null if path exist in db
+    //   new ProductPhoto object if new entry was added to table
+    public static function CreateProductPhoto($product_Id, $path){
+        $sqlStatement = "Select * from ProductPhotos where path = '$path'";
         $result = ProductPhoto::$conn->query($sqlStatement);
         if ($result->num_rows == 0) {
-            //inserting ProductPhoto to db
-            $sqlStatement = "INSERT INTO ProductPhotos(product_id, path, name) values ($product_Id, '$path', '$name')";
+            $sqlStatement = "INSERT INTO ProductPhotos(product_id, path) values ($product_Id, '$path')";
             if (ProductPhoto::$conn->query($sqlStatement) === TRUE) {
                 //entery was added to DB so we can return new object
-                return new ProductPhoto(ProductPhoto::$conn->insert_id, $product_Id, $path, $name);
+                return new ProductPhoto(ProductPhoto::$conn->insert_id, $product_Id, $path);
             }
         }
-        //there is product photo with this name in db
+        //there is a product photo with this name in db
         return null;
-    }    
+    }
     
     //this function return:
     // array with all product photos from required group
@@ -48,10 +45,33 @@ class ProductPhoto {
         $result = ProductPhoto::$conn->query($sqlStatement);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()){
-                $ret[] = new ProductPhoto($row['id'], $row['product_id'], $row['path'], $row['name']);
+                $ret[] = new ProductPhoto($row['id'], $row['product_id'], $row['path']);
             }
         }
         return $ret;
+    }
+    
+    //this function return:
+    //   true if productPhoto was deleted
+    //   false if not
+    public static function DeleteProductPhoto($toDeleteId){
+        $sql = "DELETE FROM ProductPhotos WHERE id = {$toDeleteId}";
+        if (ProductPhoto::$conn->query($sql) === TRUE) {
+            return true;
+        }
+        return false;
+    }
+    
+    // this function return:
+    //  ProductPhoto with required id or null if doesn't exist
+    public static function GetProductPhoto($product_id){
+        $sqlStatement = "Select * from ProductPhotos where product_id = '$product_id' limit 1";
+        $result = ProductPhoto::$conn->query($sqlStatement);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return new ProductPhoto($row['id'], $row['product_id'], $row['path']);
+        }
+        return null;
     }
     
     public function getId(){
@@ -66,10 +86,6 @@ class ProductPhoto {
         return $this->path;
     }
     
-    public function getName(){
-        return $this->name;
-    }
-    
     function setProduct_id($product_id) {
         $this->product_id = $product_id;
     }
@@ -78,15 +94,10 @@ class ProductPhoto {
         $this->path = $path;
     }
 
-    function setName($name) {
-        $this->name = $name;
-    }
-
                 
     //this function is responsible for saving any changes done to ProductPhotos to database
     public function saveToDB(){
-        $sql = "UPDATE ProductPhotos SET product_id={$this->product_id}, path='{$this->path}' "
-        . ", name='{$this->name}'WHERE id={$this->id}";
+        $sql = "UPDATE ProductPhotos SET product_id={$this->product_id}, path='{$this->path}' WHERE id={$this->id}";
         return ProductPhoto::$conn->query($sql);
     }
 

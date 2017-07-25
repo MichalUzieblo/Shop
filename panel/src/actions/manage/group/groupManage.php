@@ -1,6 +1,5 @@
 <?php
 //Connection modul we will use from main part of application
-//require_once dirname(__FILE__) . "/../src/actions/connection/connect.php";
 require_once dirname(__FILE__) . "/../../../../../src/actions/connection/connect.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['manageType'])){

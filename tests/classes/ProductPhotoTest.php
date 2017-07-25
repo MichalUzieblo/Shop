@@ -8,7 +8,7 @@ class ProductPhotoTest extends PHPUnit_Extensions_Database_TestCase {
     
     protected function setUp() {
         parent::setUp();
-        $this->productPhoto = ProductPhoto::CreateProductPhoto(2, '/src/db/photos/2_WTT.php', 'j');
+        $this->productPhoto = ProductPhoto::CreateProductPhoto(2, '/db/photos/2_WTT.php');
     }
     
     public function getConnection() {
@@ -45,7 +45,7 @@ class ProductPhotoTest extends PHPUnit_Extensions_Database_TestCase {
     }
     
     public function testCreateProductPhotoNull() { 
-        $productPhoto = ProductPhoto::CreateProductPhoto(2, 'cos.php', 'a');
+        $productPhoto = ProductPhoto::CreateProductPhoto(1000, 'cos.php');
         $this->assertNull($productPhoto);
     } 
     
@@ -59,17 +59,30 @@ class ProductPhotoTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(2, $ret[1]->getId());
     }
     
+    public function testDeleteProductPhoto() {                
+        $this->assertTrue(ProductPhoto::DeleteProductPhoto($this->productPhoto->getId()));
+    }
+    
+    public function testDeleteProductPhotoFalse() {                
+        $this->assertFalse(ProductPhoto::DeleteProductPhoto('asd'));
+    }
+    
+    public function testGetProductPhoto() {        
+        $this->assertSame('/db/photos/1_PKiN.jpg', ProductPhoto::GetProductPhoto(2)->getPath());
+    }
+    
+    public function testGetProductPhotoNull() {        
+        $this->assertNull(ProductPhoto::GetProductPhoto(200));
+    }
      
     public function testGetterAndSetters() {        
         $this->productPhoto->setProduct_id(3);
         $this->productPhoto->setPath('path');
-        $this->productPhoto->setName('k');
         
         $this->productPhoto->saveToDB();
 
         $this->assertEquals(3, $this->productPhoto->getProduct_id());
-        $this->assertEquals('path', $this->productPhoto->getPath());
-        $this->assertEquals('k', $this->productPhoto->getName());        
+        $this->assertEquals('path', $this->productPhoto->getPath());        
     }
     
 
