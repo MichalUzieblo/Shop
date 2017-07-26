@@ -11,8 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['logOutAdmin'])) {
     $logOutAdmin = trim($_POST['logOutAdmin']); 
     
     if ($logOutAdmin == 'logOutAdmin') {
-        if (isset($_SESSION['admin_id'])) {
-            unset($_SESSION['admin_id']);                  
+        if (isset($_SESSION['admin_id']) && isset($_SESSION['group_id'])
+                && isset($_SESSION['product_id'])) {
+            unset($_SESSION['admin_id']); 
+            unset($_SESSION['group_id']);
+            unset($_SESSION['product_id']);
         }         
         
         $_SESSION['logOutAdmin'] = $logOutAdmin;
