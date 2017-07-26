@@ -25,6 +25,18 @@ function printProducts ($products) {
     foreach ($products as $value) {
         echo '<center><div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">';
         
+        $product_id = $value->getId();
+        $productPhoto = ProductPhoto::GetProductPhoto($product_id);
+        
+        if ($productPhoto) {
+            $path = $productPhoto ->getPath();
+
+            echo '<a href="src/actions/product/pageProduct.php?id='.$value->getId().'">';
+            echo '<img src="src'.$path.'" alt="" class = "img img-fluid" style="max-width: 100%;" >';
+            echo '</a>';
+
+        }
+        
         echo '<a href="src/actions/product/pageProduct.php?'
         . 'id='.$value->getId().'">'.$value->getName().'</a><br>';
         

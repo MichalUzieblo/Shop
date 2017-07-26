@@ -29,7 +29,7 @@ function printProductGroups ($products, $i) {
         if ($productPhoto) {
             $path = $productPhoto ->getPath();
 
-            echo '<img src="../src'.$path.'" alt="" class = "img img-fluid" style="max-width: 100%;" ';
+            echo '<img src="../src'.$path.'" alt="" class = "img img-fluid" style="max-width: 100%;" >';
 
         }
         
@@ -37,9 +37,9 @@ function printProductGroups ($products, $i) {
         echo $product->getPrice() . '<br>';
         echo $product->getDescription() . '<br>';
         
-        echo '<a href="src/actions/manage/group/groupEdit.php?'
+        echo '<a href="src/actions/manage/product/productEdit.php?'
         . 'id='.$product->getId().'" type="submit" class="btn btn-default">Edit</a><br>';
-        echo '<a href="src/actions/manage/group/groupDelete.php?'
+        echo '<a href="src/actions/manage/product/productDelete.php?'
         . 'id='.$product->getId().'" type="submit" class="btn btn-default">Delete</a><br>'; 
         
         echo '</div></center>';
