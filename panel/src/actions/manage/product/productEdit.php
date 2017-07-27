@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['id']) ) {
 
 $product = Product::GetProduct($_SESSION['product_id']);var_dump($product);
 
+// Action for "Edit information" part
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['productName'])
         && !empty($_POST['productPrice']) && !empty($_POST['productDesc'])
         && !empty($_POST['productQuantity']) && isset($_SESSION['product_id'])
@@ -41,8 +42,64 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['productName'])
             $switch = 3;
             
         } else {
-            Product::DeleteProduct($product->getId());
             $switch = 2;
+        }
+        
+    } else {
+        $switch = 1;
+    }
+
+} elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $switch = 4;
+}
+
+// Action for "Select group" part
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['productGroupId'])
+        && $_POST['actionButton'] == 'group')  {
+    
+    $productGroupId = trim($_POST['productGroupId']);        
+    
+    if (is_object($product)) {
+        
+        $product->setProductGroup_id($productGroupId);
+        
+        if ($product->saveToDB()) {
+            
+            $switch = 3;
+            
+        } else {
+            $switch = 2;
+        }
+        
+    } else {
+        $switch = 1;
+    }
+
+} elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $switch = 4;
+}
+
+// Action for "Add photo" part
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['actionButton'] == 'photo')  {
+    
+    if (is_object($product)) {
+        
+        $name = $_FILES['image']['name'];
+        $dir = dirname(__FILE__) . '/../../../../../src/db/photos/';
+        $productPhoto = ProductPhoto::CreateProductPhoto($product->getId(), "/db/photos/$name");
+
+        if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK && $productPhoto) {
+
+            $result = move_uploaded_file($_FILES['image']['tmp_name'], $dir . $name);
+
+            if ($result) {
+
+                $switch = 3;
+
+            } else {
+                ProductPhoto::DeleteProductPhoto($productPhoto->getId());
+                $switch = 2;
+            }
         }
         
     } else {
@@ -79,22 +136,22 @@ require_once dirname(__FILE__) . "/../../../../../src/html/htmlHeader.php";
                 <div class="form-group">
                     <label for="">Name</label>
                     <input type="text" class="form-control" name="productName"
-                           placeholder="Product name">
+                           value="<?php echo $product->getName() ?>">
                 </div>    
                 <div class="form-group">
                     <label for="">Price</label>
                     <input type="number" class="form-control" name="productPrice"
-                           placeholder="price" step="0.01">
+                           value="<?php echo $product->getPrice() ?>" step="0.01">
                 </div> 
                 <div class="form-group">
                     <label for="">Description</label>
                     <input type="textarea" class="form-control" name="productDesc"
-                           placeholder="description">
+                           value="<?php echo $product->getDescription() ?>">
                 </div>  
                 <div class="form-group">
                     <label for="">Quantity</label>
                     <input type="number" class="form-control" name="productQuantity"
-                           placeholder="quantity">
+                           value="<?php echo $product->getInStock() ?>">
                 </div>
                 
                 <button type="submit" class="btn btn-success" name="actionButton" 
@@ -113,12 +170,12 @@ require_once dirname(__FILE__) . "/../../../../../src/html/htmlHeader.php";
                 case 3:
                     echo 'Saved';
                     break;
-                case 3:
+                case 4:
                     echo 'Empty fields in form';
                     break;
             }
         
-        ?>
+            ?>
         </div> 
         
         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -131,11 +188,19 @@ require_once dirname(__FILE__) . "/../../../../../src/html/htmlHeader.php";
                     <select class="form-control" name="productGroupId"
                            placeholder="group">
                         <?php 
+                        $selectedId = $product ->getProductGroup_id();
+                                                var_dump($selectedId);
+                        $selected = ' ';
                         $productGroups = ProductGroup::GetAllProductGroups();
+                        
                         foreach ($productGroups as $productGroup) {
-                            echo '<option value = ' . $productGroup->getId() . ' >';
+                            if ($selectedId == $productGroup->getId()) {
+                                $selected = 'selected';
+                            }
+                            echo '<option value = ' . $productGroup->getId() . ' '. $selected . ' >';
                             echo $productGroup->getName();
                             echo '</option>';
+                            $selected = ' ';
                         }
                         ?>                        
                     </select>
@@ -149,12 +214,18 @@ require_once dirname(__FILE__) . "/../../../../../src/html/htmlHeader.php";
             
             switch ($switch) {
                 case 1:
-                    echo 'Error with query';
+                    echo 'Product already exist in db';
                     break;
                 case 2:
-                    echo 'Empty field sent';
-                    break;                  
-            }   
+                    echo 'Problem with saving new product to db';
+                    break;  
+                case 3:
+                    echo 'Saved';
+                    break;
+                case 4:
+                    echo 'Empty fields in form';
+                    break;
+            }  
             
             ?>            
         </div>
@@ -177,11 +248,17 @@ require_once dirname(__FILE__) . "/../../../../../src/html/htmlHeader.php";
 
             switch ($switch) {
                 case 1:
-                    echo 'Error with query';
+                    echo 'Product already exist in db';
                     break;
                 case 2:
-                    echo 'Empty field sent';
-                    break;                  
+                    echo 'Problem with saving new product to db';
+                    break;  
+                case 3:
+                    echo 'Saved';
+                    break;
+                case 4:
+                    echo 'Empty fields in form';
+                    break;
             }
 
             ?>
