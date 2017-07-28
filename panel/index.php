@@ -85,9 +85,6 @@ require_once dirname(__FILE__) . "/../src/html/htmlHeader.php";
 <!--Place to show all "items"-->
 <div class="row">
     
-<!--    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-    </div>-->
-    
     <?php
     if ($manageType == 'groupManage' ) {
         require_once dirname(__FILE__) . "/src/actions/manage/group/groupManage.php";
@@ -99,9 +96,6 @@ require_once dirname(__FILE__) . "/../src/html/htmlHeader.php";
         require_once dirname(__FILE__) . "/src/actions/manage/order/orderManage.php";
     }
     ?>
-    
-<!--    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-    </div>-->
     
 </div> 
 

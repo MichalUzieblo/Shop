@@ -63,9 +63,21 @@ class ProductPhoto {
     }
     
     // this function return:
-    //  ProductPhoto with required id or null if doesn't exist
+    //  ProductPhoto with required product_id or null if doesn't exist
     public static function GetProductPhoto($product_id){
         $sqlStatement = "Select * from ProductPhotos where product_id = '$product_id' limit 1";
+        $result = ProductPhoto::$conn->query($sqlStatement);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return new ProductPhoto($row['id'], $row['product_id'], $row['path']);
+        }
+        return null;
+    }
+    
+     // this function return:
+    //  ProductPhoto with required id or null if doesn't exist
+    public static function GetProductPhotoById($id){
+        $sqlStatement = "Select * from ProductPhotos where id = '$id'";
         $result = ProductPhoto::$conn->query($sqlStatement);
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();

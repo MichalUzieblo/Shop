@@ -46,8 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && ( isset($_POST['yes']) || isset($_PO
             foreach ($files as $file) {
                 
                 $path = $dir . $file->getPath();
-
-                var_dump($path);
+                
                 unlink($path);
             }
             

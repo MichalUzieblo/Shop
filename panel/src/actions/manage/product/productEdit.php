@@ -243,6 +243,12 @@ require_once dirname(__FILE__) . "/../../../../../src/html/htmlHeader.php";
                 <button type="submit" class="btn btn-success" name="actionButton" 
                         value="photo">Save</button>
             </form>
+            
+            <form action="productPhotos.php" method="post" role="form" enctype="multipart/form-data">
+                <legend>Choose photos to delete:</legend>
+                <button type="submit" class="btn btn-success" name="actionButton" 
+                        value="photo">Show all photos</button>
+            </form>
         
             <?php 
 
