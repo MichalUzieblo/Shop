@@ -78,6 +78,21 @@ class UserTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertFalse(User::DeleteUser($this->user, 'haslo1'));
     }
     
+    public function testGetAllUsers() {
+        $ret = User::GetAllUsers();
+        $this->assertCount(3, $ret);
+    }
+    
+    public function testDeleteUserByAdmin() {        
+        User::DeleteUserByAdmin($this->user->getId());
+        $authenticate = User::AuthenticateUser('example4@op.pl', 'haslo');
+        $this->assertNull($authenticate);
+    }
+    
+    public function testDeleteUserByAdminFalse() {
+        $this->assertFalse(User::DeleteUserByAdmin('a'));
+    }
+    
     public function testGetters() {        
         $this->assertEquals(3, $this->user->getId());
         $this->assertEquals('jakies', $this->user->getName());

@@ -104,6 +104,34 @@ class User{
         return false;
     }
     
+    //this function return:
+    //   true if user was deleted
+    //   false if wrong query
+    public static function DeleteUserByAdmin($toDelete){
+   
+        $sql = "DELETE FROM Users WHERE id=$toDelete";
+        if (User::$conn->query($sql) === TRUE) {
+            return true;
+        }
+ 
+        return false;
+    }
+    
+    //this function returns:
+    //  empty array if table Users is empty or
+    //  table with all users
+    public static function GetAllUsers(){
+        $ret = array();
+        $sqlStatement = "Select * from Users";
+        $result = User::$conn->query($sqlStatement);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()){
+                $ret[] = new User($row['id'], $row['name'], $row['surname'], $row['email'], $row['password'], $row['address']);
+            }
+        }
+        return $ret;
+    }
+    
     public function getId(){
         return $this->id;
     }

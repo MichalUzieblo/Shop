@@ -71,6 +71,14 @@ class ProductPhotoTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertSame('/db/photos/1_PKiN.jpg', ProductPhoto::GetProductPhoto(2)->getPath());
     }
     
+    public function testGetProductPhotoById() {        
+        $this->assertSame('/db/photos/2_WTT.jpg', ProductPhoto::GetProductPhotoById(2)->getPath());
+    }
+    
+    public function testGetProductPhotoByIdNull() {        
+        $this->assertNull(ProductPhoto::GetProductPhotoById(200));
+    }
+    
     public function testGetProductPhotoNull() {        
         $this->assertNull(ProductPhoto::GetProductPhoto(200));
     }
