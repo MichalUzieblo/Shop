@@ -271,8 +271,8 @@ require_once dirname(__FILE__) . "/../../../../../src/html/htmlHeader.php";
         
         <center>
         <legend>Back</legend>
-        <form action="../../../../index.php" method="post" role="form">
-            <button type="submit" class="btn btn-success">Go to panel</button>
+        <form action="../../../../index.php" method="get" role="form">
+            <button type="submit" class="btn btn-success" value="productManage" name="manageType">Go to panel</button>
         </form>
         </center>
             

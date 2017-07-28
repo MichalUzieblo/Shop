@@ -40,7 +40,7 @@ class ProductPhoto {
     // array with all product photos from required group
     public static function GetAllPhotosByProdcuctId($product_id){
         $ret = array();
-        $sqlStatement = "Select * from ProductPhotos where product_id = '$product_id'";
+        $sqlStatement = "Select * from ProductPhotos where product_id = $product_id";
         
         $result = ProductPhoto::$conn->query($sqlStatement);
         if ($result->num_rows > 0) {

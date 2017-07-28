@@ -97,7 +97,7 @@ require_once dirname(__FILE__) . "/../src/html/htmlHeader.php";
         require_once dirname(__FILE__) . "/src/actions/manage/user/userManage.php";
     } elseif ($manageType == 'orderManage' ) {
         require_once dirname(__FILE__) . "/src/actions/manage/order/orderManage.php";
-    }        
+    }
     ?>
     
 <!--    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
