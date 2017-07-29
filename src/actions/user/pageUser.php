@@ -82,11 +82,12 @@ require_once dirname(__FILE__) . "/../../html/htmlHeader.php";
                     $product = Product::GetProduct($product_id);
                     $productName = $product->getName();
                     $productDescription = $product->getDescription();
- //TODO chande type na id                   $productType = $product->getType();
+                    $productGroup_id = $product->getProductGroup_id();
+                    $productGroup = ProductGroup::GetProductGroup($productGroup_id)->getName();
                     
                     echo "$productName $fixed_price zł x $quantity = " . $fixed_price * $quantity . " zł<br>";
                     echo "description: $productDescription<br>";
-                    echo "type: $productType<br><br>";
+                    echo "type: $productGroup<br><br>";
                 }
                 echo "<b>sum: $sum zł</b>";
                 echo "<hr>";
