@@ -37,7 +37,7 @@ function printOrders ($orders, $i) {
         echo '<a href="src/actions/manage/order/orderDelete.php?'
         . 'id='.$order_id.'" type="submit" class="btn btn-default">Delete</a><br>'; 
         echo '<a href="src/actions/manage/order/orderMessage.php?'
-        . 'id='.$order_id.'&userId='.$orderUser_id.'" type="submit" class="btn btn-default">Send message</a><br>';
+        . 'id='.$order_id.'" type="submit" class="btn btn-default">Send a message</a><br>';
         
         echo '</div></center>';
         $i++;

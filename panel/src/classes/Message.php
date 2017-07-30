@@ -32,7 +32,7 @@ class Message{
     }
 
     //this function return:
-    //   true if tweet was deleted
+    //   true if true if deleted
     //   false if not
     public static function DeleteMessage($toDeleteId){
         $sql = "DELETE FROM Messages WHERE id = {$toDeleteId}";
@@ -44,7 +44,6 @@ class Message{
 
     public static function GetAllRecievedMessages($userId, $limit = 0){
         $ret = array();
-//        $sqlStatement = "select * from Messages join where user_id = $userId";
         $sqlStatement = "select Messages.id, order_id, message from Messages join Orders on Messages.order_id = Orders.id where Orders.user_id = $userId";
         if($limit > 0){
             $sqlStatement .= " LIMIT $limit";

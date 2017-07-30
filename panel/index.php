@@ -41,8 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['manageType'])) {
     $manageType = trim($_GET['manageType']);
 }
 
-var_dump($_POST);
-var_dump($_GET);
 $title = 'Shop admin - panel';
 //Header we will use from main part of application
 require_once dirname(__FILE__) . "/../src/html/htmlHeader.php";

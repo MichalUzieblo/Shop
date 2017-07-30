@@ -9,40 +9,26 @@ require_once dirname(__FILE__) . "/../../log/isLogged.php";
 if ($isLoggedAdmin) {
 
 $switch = 0;
-var_dump($_POST, $_SESSION);
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['id']) 
-        && !empty($_GET['userId'])) {
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['id']) ) {
     $id = trim($_GET['id']);
-    $userId = trim($_GET['userId']);
     $_SESSION['order_id'] = $id;
-    $_SESSION['user_id'] = $userId;
     $order = Order::GetOrder($id);
-    $user = User::GetUser($userId);
-    
+        
 }
 
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['orderStatus']) )  {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['messageOrder']) )  {
     
-    $orderStatus = trim($_POST['orderStatus']);        
+    $messageOrder = trim($_POST['messageOrder']);        
     
     if (!empty($_SESSION['order_id'])) {
         
         $id = $_SESSION['order_id'];
         $order = Order::GetOrder($id);
-        
-        if ($orderStatus == "not confirmed") {
-            $order->setIsCart(1);
-            $order->setStatus(NULL);
-        } else {
-            if ($order->getIsCart() == 1) {
-                $order->setIsCart(0);            
-            }
-            
-            $order->setStatus($orderStatus);
-        }
-        
-        if ($order->saveToDB()) {
+        $message = Message::CreateMessage($id, $messageOrder);
+
+        if ($message != NULL) {
             header("Location: ../../../../index.php?manageType=orderManage");
                         
         } else {
@@ -87,7 +73,7 @@ require_once dirname(__FILE__) . "/../../../../../src/html/htmlHeader.php";
                 <div class="form-group">
                     <label for="">Message</label>
                     <input type="text" class="form-control" name="messageOrder" id="message"
-                           placeholder="Message">
+                           placeholder="Message...">
                 </div>
                 
                 <button type="submit" class="btn btn-success">Send</button>
@@ -100,7 +86,7 @@ require_once dirname(__FILE__) . "/../../../../../src/html/htmlHeader.php";
                     echo 'Empty sessions with order id';
                     break;
                 case 2:
-                    echo 'Problem with saving order to db';
+                    echo 'Problem with saving message to db';
                     break;
                 case 4:
                     echo 'Empty fields in form';
