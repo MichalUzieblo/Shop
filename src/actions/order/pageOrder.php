@@ -40,6 +40,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['name'])
     if (is_object($order) && is_object($product_order)) {
         $isConfirmed = TRUE;
         Order::DeleteCart($user->getId());
+        
+        foreach ($orderedProductsId as $product_id => $quantity) {        
+            $product = Product::GetProduct($product_id);
+            $newInStock = $product->getInStock() - $quantity;
+            $product->setInStock($newInStock);
+            $product->saveToDB();
+        }
+        
     }
     unset($_SESSION['idProductsInCart']); 
 }

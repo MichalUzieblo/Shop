@@ -9,10 +9,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && (!empty($_POST['add']) || !empty($_P
     
     if (!empty($_POST['add']) && is_numeric($_POST['add'])) { 
         $id = trim($_POST['add']);
+        $product = Product::GetProduct($id);
+        $inStock = $product ->getInStock();
+        
         if (isset($_SESSION['idProductsInCart'])) {
+            
             $idProductsInCart = unserialize($_SESSION['idProductsInCart']);
-            $idProductsInCart[] = $id;
-            $_SESSION['idProductsInCart'] = serialize($idProductsInCart);
+            
+            $sortedProducts = array_count_values($idProductsInCart);
+            
+            if ($sortedProducts[$id] < $inStock) {
+                $idProductsInCart[] = $id;
+                $_SESSION['idProductsInCart'] = serialize($idProductsInCart);
+            }
         }
     } elseif (!empty($_POST['del']) && is_numeric($_POST['del'])) {
         $id = trim($_POST['del']); 
@@ -57,27 +66,37 @@ require_once dirname(__FILE__) . "/../../html/htmlHeader.php";
                 $orderedProductsId = array_count_values($idProductsInCart);
                 $sum = 0;
                 foreach ($orderedProductsId as $id => $value) { 
-                $product = Product::GetProduct($id);    
-                ?>
-                <form action="" method="post" role="form">
-                    <div class="form-group">
-                        <p align="left"><?php echo $product->getName() ?></p>
-                        <p align="right"><?php
-                            $pc = ' pcs x ';
-                            if ($value == 1) {
-                                $pc = ' pc x '; 
-                            }
-                            echo $value . $pc . $product->getPrice() . ' zł, ';
-                            $sum += $product->getPrice() * $value;
-                            ?>
-                        </p>                        
-                    </div>
-                    <button type="submit" value="<?php echo $product->getId() ?>" name="add"class="btn btn-success">Add one</button>
-                    <button type="submit" value="<?php echo $product->getId() ?>" name="del" class="btn btn-success">Delete one</button>
-                    <hr>
-                </form>
-                
-                <?php
+                    $product = Product::GetProduct($id);
+                    $inStock = $product ->getInStock(); 
+                    ?>
+                    <form action="" method="post" role="form">
+                        <div class="form-group">
+                            <p align="left"><?php echo $product->getName() ?></p>
+                            <p align="right"><?php
+                                $pc = ' pcs x ';
+                                if ($value == 1) {
+                                    $pc = ' pc x '; 
+                                }
+                                echo $value . $pc . $product->getPrice() . ' zł, <br>';
+                                
+                                if (isset($_SESSION['idProductsInCart'])) {            
+                                    $idProductsInCart = unserialize($_SESSION['idProductsInCart']);
+                                    $sortedProducts = array_count_values($idProductsInCart);
+                                    if ($sortedProducts[$id] == $inStock) {
+                                        echo 'we don\'t have more';
+                                    }
+                                }
+                                
+                                $sum += $product->getPrice() * $value;
+                                ?>
+                            </p>                        
+                        </div>
+                        <button type="submit" value="<?php echo $product->getId() ?>" name="add"class="btn btn-success">Add one</button>
+                        <button type="submit" value="<?php echo $product->getId() ?>" name="del" class="btn btn-success">Delete one</button>
+                        <hr>
+                    </form>
+
+                    <?php
                 }
                 ?>
                 <h3><p align="right"> 
