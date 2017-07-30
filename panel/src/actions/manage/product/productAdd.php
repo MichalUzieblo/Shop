@@ -7,8 +7,6 @@ require_once dirname(__FILE__) . "/../../../../../src/actions/connection/connect
 require_once dirname(__FILE__) . "/../../log/isLogged.php";
 
 if ($isLoggedAdmin) {
-    var_dump($_POST);
-    var_dump($_FILES);
     $switch = 0;
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['productName']) 

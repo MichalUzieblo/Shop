@@ -51,9 +51,22 @@ if ($isLogged) {
             <div id="carousel-example-generic2" class="carousel slide">
 
                 <ol class="carousel-indicators">
-                    <li data-target="#carousel-example-generic2" data-slide-to="0" class="active"></li>
-                    <li data-target="#carousel-example-generic2" data-slide-to="1"></li>
-                    <li data-target="#carousel-example-generic2" data-slide-to="2"></li>
+                    
+                    <?php  var_dump(count($productPhotos));
+
+                    for ($i=0; $i<count($productPhotos); $i++) {                       
+
+                        if ($i == 0) { ?>
+                            <li data-target="#carousel-example-generic2" data-slide-to="0" class="active"></li>
+                            <?php
+                        } else { ?>
+                            <li data-target="#carousel-example-generic2" data-slide-to="<?php echo $i; ?>"></li>
+                            <?php
+                        }
+                    }            
+
+                    ?>
+
                 </ol>
 
                 <div class="carousel-inner">

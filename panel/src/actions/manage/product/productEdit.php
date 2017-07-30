@@ -9,7 +9,6 @@ require_once dirname(__FILE__) . "/../../log/isLogged.php";
 if ($isLoggedAdmin) {
 
     $switch = 0;
-    var_dump($_POST, $_SESSION);
     if ($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['id'])) {
         $id = trim($_GET['id']);
         $_SESSION['product_id'] = $id;
@@ -17,7 +16,6 @@ if ($isLoggedAdmin) {
     }
 
     $product = Product::GetProduct($_SESSION['product_id']);
-    var_dump($product);
 
 // Action for "Edit information" part
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['productName']) 
@@ -75,6 +73,8 @@ if ($isLoggedAdmin) {
 
 // Action for "Add photo" part
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['actionButton'] == 'photo') {
+        
+        
 
         if (is_object($product)) {
 
