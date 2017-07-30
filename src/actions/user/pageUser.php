@@ -55,7 +55,7 @@ if ($isLogged) {
                 $i = 1;
 
                 foreach ($userOrders as $order) {
-                    echo "<b>Order nr " . "$i<br></b>";
+                    echo "<b>Order id nr " . $order->getId() . "<br></b>";
 
                     $order_id = $order->getId();
                     $orderStatus = $order->getStatus();

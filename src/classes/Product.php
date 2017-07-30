@@ -62,7 +62,7 @@ class Product {
     //empty array in no products in db
     public static function GetAllProducts($limit = 0) {
         $ret = array();
-        $sqlStatement = "Select * from Products where del_by_admin = 0";
+        $sqlStatement = "Select * from Products where del_by_admin = 0 and inStock > 0";
         if ($limit > 0) {
             $sqlStatement .= " LIMIT $limit";
         }
@@ -81,7 +81,7 @@ class Product {
     //empty array in no products with this group
     public static function GetAllProductsByGroup($productGroup_id) {
         $ret = array();
-        $sqlStatement = "Select * from Products where productGroup_id = $productGroup_id and del_by_admin = 0";
+        $sqlStatement = "Select * from Products where productGroup_id = $productGroup_id and del_by_admin = 0 and inStock > 0";
 
         $result = Product::$conn->query($sqlStatement);
         if ($result->num_rows > 0) {

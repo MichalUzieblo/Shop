@@ -22,6 +22,20 @@ if ($isLoggedAdmin) {
         if (!empty($_POST['yes'])) {
 
             $id = $_POST['yes'];
+            $order = Order::GetOrder($id);
+            
+            if ($order->getStatus() == 'not paid' || $order->getStatus() == 'paid') {
+                $product_orders = Product_Order::GetAllByOrderId($id);
+                foreach ($product_orders as $product_order) {
+                    $product_id = $product_order->getProduct_id();
+                    $quantity = $product_order->getQuantity();
+                    
+                    $product = Product::GetProduct($product_id);
+                    $newInStock = $product->getInStock() + $quantity;
+                    $product ->setInStock($newInStock);
+                    $product->saveToDB();
+                }
+            }
 
             if (Order::DeleteOrder($id)) {
                 if (isset($_SESSION['order_id'])) {
@@ -54,7 +68,7 @@ if ($isLoggedAdmin) {
                         ?>
 
                         <form action="../../../../index.php" method="post" role="form">
-                            <button type="submit" value="groupManage" name="manageType" class="btn btn-success">Back</button>  
+                            <button type="submit" value="orderManage" name="manageType" class="btn btn-success">Back</button>  
                         </form>
 
                         <?php
