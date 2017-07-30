@@ -84,7 +84,7 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertCount(2, $ret);
     }
     
-        public function testGetAllUserOrders() {
+    public function testGetAllUserOrders() {
         $ret = Order::GetAllUserOrders(1);
         $this->assertEquals('paid', $ret[1]->getStatus());
     }
@@ -113,6 +113,16 @@ class OrderTest extends PHPUnit_Extensions_Database_TestCase {
     
     public function testDeleteCartFalse() {
         $this->assertFalse(Order::DeleteCart('z'));
+    }
+    
+    public function testGetAllOrdersByStatus() {
+        $ret = Order::GetAllOrdersByStatus('paid');
+        $this->assertCount(2, $ret);
+    }
+    
+    public function testGetAllCarts() {
+        $ret = Order::GetAllCarts();
+        $this->assertCount(1, $ret);
     }
     
     public function testGetters() {        

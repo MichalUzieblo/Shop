@@ -156,6 +156,36 @@ class Order {
         return false;
     }
     
+    //   this function return:
+    //   array with all Orders with choosen status
+    public static function GetAllOrdersByStatus($status){
+        $ret = array();
+        $sqlStatement = "Select * from Orders where isCart = 0 and status = '$status'";
+        $result = Order::$conn->query($sqlStatement);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()){
+                $ret[] = new Order($row['id'], $row['user_id'], $row['status'], 
+                        $row['isCart'], $row['paymentType'], $row['name'] , $row['surname'], $row['address']);
+            }
+        }
+        return $ret;
+    }
+    
+    //   this function return:
+    //   array with all Orders with choosen status
+    public static function GetAllCarts(){
+        $ret = array();
+        $sqlStatement = "Select * from Orders where isCart = 1";
+        $result = Order::$conn->query($sqlStatement);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()){
+                $ret[] = new Order($row['id'], $row['user_id'], $row['status'], 
+                        $row['isCart'], $row['paymentType'], $row['name'] , $row['surname'], $row['address']);
+            }
+        }
+        return $ret;
+    }
+    
     public function getId() {
         return $this->id;
     }

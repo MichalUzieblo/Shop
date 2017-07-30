@@ -5,8 +5,34 @@ require_once dirname(__FILE__) . "/../src/actions/connection/connect.php";
 //Checking modul from admin part
 require_once dirname(__FILE__) . "/src/actions/log/isLogged.php";
 
-$manageType = "Nothing";
 //place for logic part
+
+$manageType = "Nothing";
+
+// Data from and for orderManage.php
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['orderType'])){
+
+    $manageType ='orderManage';
+    $orderType = ($_POST['orderType']);
+    if ($orderType == "not confirmed") {
+        $orders = Order::GetAllCarts();
+    } else {
+        $orders = Order::GetAllOrdersByStatus($orderType);
+    }
+    
+} elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['orderType'])){
+    
+    $manageType ='orderManage';
+    $orderType = trim($_GET['orderType']);
+    if ($orderType == "not confirmed") {
+        $orders = Order::GetAllCarts();
+    } else {
+        $orders = Order::GetAllOrdersByStatus($orderType);
+    }
+
+}
+//end
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['manageType'])) {
     $manageType = trim($_POST['manageType']);
 }

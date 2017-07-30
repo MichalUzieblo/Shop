@@ -7,7 +7,6 @@ require_once dirname(__FILE__) . "/src/actions/log/isLogout.php";
 $productGroup = 'all';
 $isProductId = FALSE;
 
-//TODO additional database with producGroup - because of possibility to add new one by admin
 if (!empty($_POST['productGroup'])) {
     
     $ret = ProductGroup::GetAllProductGroups();
@@ -18,20 +17,7 @@ if (!empty($_POST['productGroup'])) {
             $productGroup_id = $productGroupObject->getId();
         }
     }
-//    switch ($_POST['productGroup']) {
-//        case 'offices':
-//            $productGroup = 'offices';
-//            break;
-//        case 'residential':
-//            $productGroup = 'residential';
-//            break;
-//        case 'hotels':
-//            $productGroup = 'hotels';
-//            break;
-//        case 'mixed':
-//            $productGroup = 'mixed';
-//            break;
-//    }
+    
 } else {
     $productGroup = 'all';
 }
