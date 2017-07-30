@@ -1,10 +1,10 @@
-id,name,price,description,inStock,productGroup_id
-1,bread,3.35,very good,6,4
-2,butter,5.29,quite good,3,3
-3,pen,1.00,nice,4,2
-4,WTT,122,sdgsdg,6,1
-5,pen,1.00,nice,4,4
-6,lkop,23,aasdf,4,3
-7,hotel,2,ttrewop,7,2
-8,bread,3.35,very good,6,1
-9,butter,5.29,quite good,3,4
+id,name,price,description,inStock,productGroup_id,del_by_admin
+1,bread,3.35,very good,6,4,0
+2,butter,5.29,quite good,3,3,0
+3,pen,1.00,nice,4,2,0
+4,WTT,122,sdgsdg,6,1,0
+5,pen,1.00,nice,4,4,0
+6,lkop,23,aasdf,4,3,0
+7,hotel,2,ttrewop,7,2,0
+8,bread,3.35,very good,6,1,0
+9,butter,5.29,quite good,3,4,0

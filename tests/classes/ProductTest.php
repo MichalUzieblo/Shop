@@ -95,6 +95,7 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $this->product->setDescription('still');
         $this->product->setInStock(5);
         $this->product->setProductGroup_id(2);
+        $this->product->setDelByAdmin(1);
 
         $this->product->saveToDB();
 
@@ -103,5 +104,6 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals('still', $this->product->getDescription());
         $this->assertEquals(5, $this->product->getInStock());
         $this->assertEquals(2, $this->product->getProductGroup_id());
+        $this->assertEquals(1, $this->product->getDelByAdmin());
     }
 }

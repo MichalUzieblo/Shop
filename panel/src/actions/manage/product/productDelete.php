@@ -20,14 +20,15 @@ if ($isLoggedAdmin) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && ( isset($_POST['yes']) || isset($_POST['no']) )) {
 
         if (!empty($_POST['yes'])) {
-
-            $id = $_POST['yes'];
-            $product_id = $_SESSION['product_id'];
+            
+            $product_id = $_POST['yes'];
             $files = ProductPhoto::GetAllPhotosByProdcuctId($product_id);
-
+            $product = Product::GetProduct($product_id);
+            
             $dir = dirname(__FILE__) . '/../../../../../src';
-
-            if (Product::DeleteProduct($id)) {
+            //Product won't be physicaly deleted from db because it could be added to
+            //realized orders, product will be only deactivated
+            if ($product->setDelByAdmin(1) && $product->saveToDB()) {                
 
                 foreach ($files as $file) {
 
@@ -40,7 +41,7 @@ if ($isLoggedAdmin) {
                     unset($_SESSION['product_id']);
                 }
 
-                header("Location: ../../../../index.php?manageType=productManage");
+//                header("Location: ../../../../index.php?manageType=productManage");
             } else {
                 $switch = 2;
             }
