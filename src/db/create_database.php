@@ -57,9 +57,18 @@ $shopArraysSQL = array(
                         id int AUTO_INCREMENT NOT NULL,
                         name varchar(48) NOT NULL,
                         PRIMARY KEY(id),
+     ENGINE=InnoDB, CHARACTER SET=utf8"   
+,   
+    "create table Messages(
+                        id int AUTO_INCREMENT NOT NULL,
+                        user_id int NOT NULL,
+                        order_id int NOT NULL,
+                        message varchar(256) NOT NULL,
+                        PRIMARY KEY(id),
+                        FOREIGN KEY(user_id) REFERENCES Users(id) ON DELETE CASCADE,
+                        FOREIGN KEY(order_id) REFERENCES Orders(id) ON DELETE CASCADE)
      ENGINE=InnoDB, CHARACTER SET=utf8"
-    
-    );
+);
 
 foreach($shopArraysSQL as $query){
     $result = $conn->query($query);
