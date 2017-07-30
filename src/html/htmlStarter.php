@@ -1,5 +1,5 @@
 <center>
-        <form action="src/actions/log/logIn.php" method="post" role="form" id="center">
+    <form action="src/actions/log/logIn.php" method="post" role="form" id="center">
         <?php
         if ($isLogOut) {
             echo 'Pomyslnie wylogowano<br>';

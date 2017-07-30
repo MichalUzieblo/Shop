@@ -52,7 +52,7 @@ if ($isLoggedAdmin) {
 
 
     $title = 'Shop Admin - Delete Product';
-//Header we will use from main part of application
+    //Header we will use from main part of application
     require_once dirname(__FILE__) . "/../../../../../src/html/htmlHeader.php";
     ?>
 
@@ -91,6 +91,7 @@ if ($isLoggedAdmin) {
         </div>
     </div>
     <?php
+    //Footer we will use from main part of application
     require_once dirname(__FILE__) . "/../../../../../src/html/htmlFooter.php";
 } else {
     header("Location: ../../../../index.php");

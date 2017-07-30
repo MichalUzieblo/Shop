@@ -1,6 +1,6 @@
 <?php
 $conn->close();
-$conn = null;   
+$conn = null;
 ?>
 
 </body>

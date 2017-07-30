@@ -14,8 +14,8 @@ require_once dirname(__FILE__) . "/../../../panel/src/classes/Message.php";
 $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASSWORD, $DB_DBNAME);
 if ($conn->connect_error) {
     die("Polaczenie z shop nieudane. Blad: " .
-    $conn->connect_error);
-} 
+            $conn->connect_error);
+}
 
 Product::SetConnection($conn);
 User::SetConnection($conn);

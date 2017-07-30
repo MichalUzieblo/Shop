@@ -19,8 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])
         
         if ($password == $repeatPassword) {
          
-            $newUser = User::CreateUser($email, $password);
-            
+            $newUser = User::CreateUser($email, $password);            
 
             if ($newUser) {
                 $newUser ->setName($username);
