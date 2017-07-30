@@ -56,6 +56,21 @@ class Message{
         }
         return $ret;
     }
+    
+    public static function GetAllMessagesByOrderId($orderId, $limit = 0){
+        $ret = array();
+        $sqlStatement = "select * from Messages where order_id = $orderId";
+        if($limit > 0){
+            $sqlStatement .= " LIMIT $limit";
+        }
+        $result = Message::$conn->query($sqlStatement);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()){
+                $ret[] = new Message($row['id'], $row['order_id'], $row['message']);
+            }
+        }
+        return $ret;
+    }
 
     public static function GetAllSendMessages($limit = 0){
         $ret = array();

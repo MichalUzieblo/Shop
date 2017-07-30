@@ -46,14 +46,16 @@ require_once dirname(__FILE__) . "/../../html/htmlHeader.php";
     
 <!--History of orders-->
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-        <!--<center>-->
+
+        <center>
             <legend>History of Orders</legend>
+        </center>
             <?php
             
             $i = 1;
             
             foreach ($userOrders as $order) {
-                ?><b>Order nr <?php echo "$i<br></b>";
+                echo "<b>Order nr " . "$i<br></b>";
                 
                 $order_id = $order->getId();
                 $orderStatus = $order->getStatus();
@@ -89,14 +91,31 @@ require_once dirname(__FILE__) . "/../../html/htmlHeader.php";
                     echo "description: $productDescription<br>";
                     echo "type: $productGroup<br><br>";
                 }
-                echo "<b>sum: $sum zł</b>";
-                echo "<hr>";
+                echo "<b>sum: $sum zł</b><br><br>";
                 $i++;
+                
+                echo "<b>Messages from admin to this order:<br></b>";
+                
+                $messages = Message::GetAllMessagesByOrderId($order_id);
+                $j = 1;
+                
+                if (!empty($messages)) {
+                    foreach ($messages as $message) {
+                        echo $j . '. ' . $message->getMessage() . '<br>';
+                        $j++;
+                    }
+                } else {
+                    echo 'No messages<br>';
+                }
+                echo "<hr>";
+                
+                
+                
             }
             
             
             ?>
-        <!--</center>-->               
+              
     </div>
 
 <!--Place for the shopping cart-->   

@@ -58,6 +58,16 @@ class MessageTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertCount(2, $ret);
     }
     
+    public function testGetAllMessagesByOrderId() {
+        $ret = Message::GetAllMessagesByOrderId(1);
+        $this->assertCount(3, $ret);
+    }
+    
+    public function testGetAllMessagesByOrderIdLimi() {
+        $ret = Message::GetAllMessagesByOrderId(1, 2);
+        $this->assertCount(2, $ret);
+    }
+    
     public function testDeleteMessage() {                
         $this->assertTrue(Message::DeleteMessage($this->message->getId()));
     }

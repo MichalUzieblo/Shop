@@ -9,6 +9,7 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
     protected function setUp() {
         parent::setUp();
         $this->product = Product::CreateProduct('milk', 1.99);
+        $this->product->setProductGroup_id(4);
     }
     
     public function getConnection() {
@@ -86,7 +87,7 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(1.99, $this->product->getPrice());
         $this->assertEquals('cos', $this->product->getDescription());
         $this->assertEquals(0, $this->product->getInStock());     
-        $this->assertEquals(NULL, $this->product->getProductGroup_id());
+        $this->assertEquals(4, $this->product->getProductGroup_id());
     }
     
     public function testSetters() {        
@@ -94,7 +95,7 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $this->product->setPrice(1.35);
         $this->product->setDescription('still');
         $this->product->setInStock(5);
-        $this->product->setProductGroup_id('house');
+        $this->product->setProductGroup_id(2);
         
         $this->product->saveToDB();
 
@@ -102,6 +103,6 @@ class ProductTest extends PHPUnit_Extensions_Database_TestCase {
         $this->assertEquals(1.35, $this->product->getPrice());
         $this->assertEquals('still', $this->product->getDescription());
         $this->assertEquals(5, $this->product->getInStock());  
-        $this->assertEquals('house', $this->product->getProductGroup_id()); 
+        $this->assertEquals(2, $this->product->getProductGroup_id()); 
     } 
 }
