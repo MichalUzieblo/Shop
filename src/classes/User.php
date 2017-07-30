@@ -35,7 +35,7 @@ class User {
             //inserting user to db
             $options = [
                 'cost' => 11,
-                'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
+//                'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
             ];
             $hashed_password = password_hash($password, PASSWORD_BCRYPT, $options);
             $sqlStatement = "INSERT INTO Users(name, surname, email, password, address) values ('jakies', 'jakies', '$userMail', '$hashed_password', 'jakis')";
@@ -171,7 +171,7 @@ class User {
     public function setPassword($newPassword) {
         $options = [
             'cost' => 11,
-            'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
+//            'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
         ];
         $this->password = password_hash($newPassword, PASSWORD_BCRYPT, $options);
     }

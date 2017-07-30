@@ -57,11 +57,9 @@ if ($isLogged) {
         <form action="" method="post" role="form">
             <button type="submit" value="clear" name="cartOpt" class="btn btn-success">Clear</button>        
         </form>
-        <?php
-        if ($isProductId) {
-            echo '<br>';
-        }
-        ?>
+
+        <br>
+        
         <form action="
         <?php
         if ($isProductId) {
@@ -75,11 +73,7 @@ if ($isLogged) {
 
         </form>
 
-    <?php
-    if ($isProductId) {
-        echo '<br>';
-    }
-    ?>
+        <br>
 
         <form action="
         <?php
@@ -93,11 +87,7 @@ if ($isLogged) {
             <button type="submit" value="edit" name="cartOpt" class="btn btn-success">Edit</button>
         </form>
 
-        <?php
-        if ($isProductId) {
-            echo '<br>';
-        }
-        ?>
+        <br>
 
         <form action="
         <?php

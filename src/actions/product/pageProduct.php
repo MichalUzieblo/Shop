@@ -20,7 +20,8 @@ if ($isLogged) {
         $price = $product->getPrice();
 
         $productPhotos = ProductPhoto::GetAllPhotosByProdcuctId($id);
-
+    
+    $title = 'Shop - Product page';
     require_once dirname(__FILE__) . "/../../html/htmlHeader.php";  
 
     ?>
@@ -52,7 +53,7 @@ if ($isLogged) {
 
                 <ol class="carousel-indicators">
                     
-                    <?php  var_dump(count($productPhotos));
+                    <?php
 
                     for ($i=0; $i<count($productPhotos); $i++) {                       
 

@@ -31,7 +31,6 @@ function printProductPhotos($productPhotos, $i) {
             echo '</div>';
 
             echo '<div class="row">';
-            echo 'p';
             echo '</div>';
 
             echo '<div class="row">';
@@ -98,7 +97,6 @@ if ($isLoggedAdmin) {
         echo '</div>';
 
         echo '<div class="row">';
-        echo 'p';
         echo '</div>';
 
         echo '<div class="row">';

@@ -13,7 +13,7 @@
             </a>
             <div class="carousel-caption">
                 <h1 style="background-color:black; color:white">
-                    <a href="src/actions/product/pageProduct.php?id=1">200mln</a>
+                    <a href="src/actions/product/pageProduct.php?id=1"></a>
                 </h1>
             </div>
         </div>
@@ -24,7 +24,7 @@
             </a>
             <div class="carousel-caption" >
                 <h1 style="background-color:black; color:white">
-                    <a href="src/actions/product/pageProduct.php?id=2">180mln</a>
+                    <a href="src/actions/product/pageProduct.php?id=2"></a>
                 </h1>
             </div>
         </div>
@@ -35,7 +35,7 @@
             </a>
             <div class="carousel-caption">
                 <h1 style="background-color:black; color:white">
-                    <a href="src/actions/product/pageProduct.php?id=3">160mln</a>
+                    <a href="src/actions/product/pageProduct.php?id=3"></a>
                 </h1>
             </div>
         </div>

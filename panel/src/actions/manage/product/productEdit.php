@@ -8,7 +8,10 @@ require_once dirname(__FILE__) . "/../../log/isLogged.php";
 
 if ($isLoggedAdmin) {
 
-    $switch = 0;
+    $switch1 = 0;
+    $switch2 = 0;
+    $switch3 = 0;
+    
     if ($_SERVER['REQUEST_METHOD'] == 'GET' && !empty($_GET['id'])) {
         $id = trim($_GET['id']);
         $_SESSION['product_id'] = $id;
@@ -37,15 +40,15 @@ if ($isLoggedAdmin) {
 
             if ($product->saveToDB()) {
 
-                $switch = 3;
+                $switch1 = 3;
             } else {
-                $switch = 2;
+                $switch1 = 2;
             }
         } else {
-            $switch = 1;
+            $switch1 = 1;
         }
     } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $switch = 4;
+        $switch1 = 4;
     }
 
 // Action for "Select group" part
@@ -60,15 +63,15 @@ if ($isLoggedAdmin) {
 
             if ($product->saveToDB()) {
 
-                $switch = 3;
+                $switch2 = 3;
             } else {
-                $switch = 2;
+                $switch2 = 2;
             }
         } else {
-            $switch = 1;
+            $switch2 = 1;
         }
     } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $switch = 4;
+        $switch2 = 4;
     }
 
 // Action for "Add photo" part
@@ -88,17 +91,17 @@ if ($isLoggedAdmin) {
 
                 if ($result) {
 
-                    $switch = 3;
+                    $switch3 = 3;
                 } else {
                     ProductPhoto::DeleteProductPhoto($productPhoto->getId());
-                    $switch = 2;
+                    $switch3 = 2;
                 }
             }
         } else {
-            $switch = 1;
+            $switch3 = 1;
         }
     } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $switch = 4;
+        $switch3 = 4;
     }
 
     $title = 'Shop Admin - Edit Product';
@@ -148,7 +151,7 @@ if ($isLoggedAdmin) {
                     </form>
 
                     <?php
-                    switch ($switch) {
+                    switch ($switch1) {
                         case 1:
                             echo 'Product already exist in db';
                             break;
@@ -198,7 +201,7 @@ if ($isLoggedAdmin) {
                     </form>
 
                         <?php
-                        switch ($switch) {
+                        switch ($switch2) {
                             case 1:
                                 echo 'Product already exist in db';
                                 break;
@@ -236,7 +239,7 @@ if ($isLoggedAdmin) {
                     </form>
 
                     <?php
-                    switch ($switch) {
+                    switch ($switch3) {
                         case 1:
                             echo 'Product already exist in db';
                             break;
