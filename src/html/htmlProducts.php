@@ -40,8 +40,8 @@ function printProducts ($products) {
         echo '<a href="src/actions/product/pageProduct.php?'
         . 'id='.$value->getId().'">'.$value->getName().'</a><br>';
         
-        echo $value->getPrice() . '<br>';
-        echo $value->getDescription() . '<br>';
+        echo $value->getPrice() . 'zł <br>';
+//        echo $value->getDescription() . '<br>';
         echo '</div></center>';
         $i++;
         if ($i % 5 == 0) {
