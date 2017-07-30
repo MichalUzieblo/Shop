@@ -243,7 +243,7 @@ class Order {
     //   null if status is different than paid or not paid
     //   true if status is paid or not paid
     public static function checkStatus($status){        
-        if ($status == 'paid' || $status == 'not paid') {
+        if ($status == 'completed' || $status == 'paid' || $status == 'not paid') {
             return TRUE;
         }
         return null;
