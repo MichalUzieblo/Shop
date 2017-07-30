@@ -137,8 +137,10 @@ if ($isLoggedAdmin) {
                         </div> 
                         <div class="form-group">
                             <label for="">Description</label>
-                            <input type="textarea" class="form-control" name="productDesc"
-                                   value="<?php echo $product->getDescription() ?>">
+<!--                            <input type="text" class="form-control" name="productDesc"
+                                   value="<?php echo $product->getDescription() ?>">-->
+                            <textarea type="text" class="form-control" name="productDesc"
+                                   value="<?php echo $product->getDescription() ?>" rows="3"></textarea>
                         </div>  
                         <div class="form-group">
                             <label for="">Quantity</label>
